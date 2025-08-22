@@ -1,312 +1,612 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oferta de Marketing Digital</title>
+    <title>PMEs A Coruña - Prospects Marketing Digital</title>
     <style>
-        :root {
-            --primary: #4361ee;
-            --secondary: #3a0ca3;
-            --accent: #f72585;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --success: #4cc9f0;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
         body {
-            background-color: #f5f7ff;
-            color: var(--dark);
-            line-height: 1.6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
         }
-        
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-            border-radius: 0 0 20px 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        h1 {
-            font-size: 2.8rem;
-            margin-bottom: 15px;
-        }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto 25px;
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: var(--accent);
-            color: white;
-            padding: 15px 35px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 15px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-        }
-        
-        section {
-            padding: 60px 20px;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 40px;
-            color: var(--secondary);
-            position: relative;
-        }
-        
-        .section-title:after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background: var(--accent);
-            margin: 15px auto;
-            border-radius: 2px;
-        }
-        
-        .services {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-        
-        .service-card {
             background: white;
-            border-radius: 15px;
             padding: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 1500px;
+            margin: 0 auto;
         }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.2em;
+            font-weight: 300;
         }
-        
-        .service-icon {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 20px;
+        .subtitle {
+            text-align: center;
+            color: #6c757d;
+            margin-bottom: 30px;
+            font-size: 1.1em;
         }
-        
-        .service-title {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            color: var(--secondary);
-        }
-        
-        .included-services {
-            background-color: var(--light);
-            border-radius: 20px;
-            padding: 50px 20px;
-        }
-        
-        .service-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            background: white;
+        .highlight-box {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-        }
-        
-        .checkmark {
-            color: var(--success);
-            font-size: 1.5rem;
-            margin-right: 15px;
-            flex-shrink: 0;
-        }
-        
-        .bonus {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-            padding: 30px;
-            border-radius: 15px;
+            margin-bottom: 30px;
             text-align: center;
-            margin-top: 40px;
-            color: white;
         }
-        
-        .bonus-title {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-        }
-        
-        .pricing {
+        .download-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
             text-align: center;
-            padding: 60px 20px;
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
-            color: white;
-            border-radius: 20px;
         }
+        .download-btn {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .download-btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+        .csv-btn {
+            background: #17a2b8;
+        }
+        .csv-btn:hover {
+            background: #138496;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 13px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 8px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+        }
+        td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+        tr:hover {
+            background: #f8f9fa;
+        }
+        .empresa-nome {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        .setor {
+            color: #6c757d;
+            font-style: italic;
+        }
+        .contato {
+            font-size: 11px;
+        }
+        .funcionarios {
+            text-align: center;
+            font-weight: 600;
+            color: #28a745;
+        }
+        .potencial {
+            text-align: center;
+            font-weight: 600;
+        }
+        .alto { background: #d4edda; color: #155724; }
+        .medio { background: #fff3cd; color: #856404; }
+        .baixo { background: #f8d7da; color: #721c24; }
         
-        .price {
-            font-size: 3.5rem;
-            font-weight: bold;
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
             margin: 20px 0;
         }
-        
-        .price-desc {
-            max-width: 600px;
-            margin: 0 auto 30px;
-        }
-        
-        footer {
+        .stat-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
             text-align: center;
-            padding: 30px;
-            background-color: var(--dark);
-            color: white;
-            margin-top: 60px;
+            border-left: 4px solid #28a745;
         }
-        
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            .services {
-                grid-template-columns: 1fr;
-            }
-            
-            .price {
-                font-size: 2.8rem;
-            }
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #28a745;
+        }
+        .copy-area {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 11px;
+            margin: 20px 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .copy-btn {
+            background: #6c757d;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .tip-box {
+            background: #e3f2fd;
+            border: 1px solid #90caf9;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Potencia tu Negocio con Marketing Digital Integral</h1>
-            <p class="subtitle">Una estrategia completa de 6 meses para hacer crecer tu marca, aumentar tu visibilidad y generar más clientes</p>
-            <a href="#contact" class="btn">Solicitar Información</a>
-        </div>
-    </header>
-    
-    <section class="container">
-        <h2 class="section-title">Nuestros Servicios Principales</h2>
-        <div class="services">
-            <div class="service-card">
-                <div class="service-icon">📱</div>
-                <h3 class="service-title">Gestión de Redes Sociales</h3>
-                <p>Gestión profesional de tus redes sociales con contenido estratégico para engagement y crecimiento de comunidad.</p>
-            </div>
-            
-            <div class="service-card">
-                <div class="service-icon">🌐</div>
-                <h3 class="service-title">Landing Page</h3>
-                <p>Diseño y desarrollo de landing pages atractivas y optimizadas para conversión que transforman visitantes en clientes.</p>
-            </div>
-            
-            <div class="service-card">
-                <div class="service-icon">🚀</div>
-                <h3 class="service-title">Tráfico Pago</h3>
-                <p>Campañas publicitarias efectivas en Google Ads y redes sociales para atraer clientes potenciales calificados.</p>
-            </div>
-            
-            <div class="service-card">
-                <div class="service-icon">🔍</div>
-                <h3 class="service-title">Estructuración Google</h3>
-                <p>Optimización de tu presencia en Google, incluyendo Google My Business y estrategias de visibilidad en buscadores.</p>
-            </div>
-            
-            <div class="service-card">
-                <div class="service-icon">💼</div>
-                <h3 class="service-title">Consultoría Empresarial</h3>
-                <p>Asesoramiento especializado para alinear tus objetivos de negocio con estrategias digitales efectivas.</p>
-            </div>
-            
-            <div class="service-card">
-                <div class="service-icon">🎨</div>
-                <h3 class="service-title">Design de Posts y Stories</h3>
-                <p>Contenido visual profesional y atractivo diseñado específicamente para redes sociales.</p>
-            </div>
-        </div>
-    </section>
-    
-    <section class="included-services container">
-        <h2 class="section-title">Lo que incluye nuestro paquete</h2>
+    <div class="container">
+        <h1>🎯 Pequenas e Médias Empresas - A Coruña</h1>
+        <div class="subtitle">Prospects Qualificados para Marketing Digital • Atualizado Agosto 2025</div>
         
-        <div class="service-item">
-            <div class="checkmark">✅</div>
-            <div>
-                <h3>Estrategia en redes sociales por 6 meses</h3>
-                <p>Planificación, ejecución y monitoreo de tu presencia en redes sociales con ajustes mensuales basados en resultados.</p>
+        <div class="highlight-box">
+            <h3>📈 Por que estas empresas são perfeitas para Marketing Digital?</h3>
+            <p><strong>✅ Não têm departamento de marketing próprio</strong> • <strong>✅ Precisam aumentar vendas</strong> • <strong>✅ Orçamento acessível</strong> • <strong>✅ Decisão rápida</strong></p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">50</div>
+                <div>Empresas Mapeadas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">1.485</div>
+                <div>Total Comercios Locais</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">68%</div>
+                <div>Negócios Diversos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">21%</div>
+                <div>Hostelería</div>
             </div>
         </div>
         
-        <div class="service-item">
-            <div class="checkmark">✅</div>
-            <div>
-                <h3>Identidad visual premium completa</h3>
-                <p>Desarrollo de una identidad de marca coherente y profesional que comunique el valor de tu negocio.</p>
-            </div>
+        <div class="download-section">
+            <h3>📊 Download da Lista de Prospects</h3>
+            <p>Lista qualificada de PMEs locais que <strong>realmente precisam</strong> de marketing digital:</p>
+            <button class="download-btn" onclick="downloadExcel()">📈 Download Excel (.xlsx)</button>
+            <button class="download-btn csv-btn" onclick="downloadCSV()">📋 Download CSV</button>
         </div>
-        
-        <div class="service-item">
-            <div class="checkmark">✅</div>
-            <div>
-                <h3>Campañas pagadas en Google y Meta (Facebook/Instagram) por 3 meses</h3>
-                <p>Gestión profesional de campañas publicitarias con optimización constante para maximizar ROI.</p>
-            </div>
+
+        <table id="empresasTable">
+            <thead>
+                <tr>
+                    <th>Empresa</th>
+                    <th>Setor</th>
+                    <th>Endereço</th>
+                    <th>Telefone</th>
+                    <th>Website/Email</th>
+                    <th>Funcionários</th>
+                    <th>Potencial Marketing</th>
+                    <th>Observações/Necessidades</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- RESTAURANTES E BARES -->
+                <tr>
+                    <td class="empresa-nome">Restaurante O Bebedeiro</td>
+                    <td class="setor">Hostelería - Restaurante</td>
+                    <td>Rúa Ángel Rebollo 34, A Coruña</td>
+                    <td class="contato">+34 981 21 06 09</td>
+                    <td class="contato">N/D - SEM SITE</td>
+                    <td class="funcionarios">5-8</td>
+                    <td class="potencial alto">ALTO</td>
+                    <td>Sem presença digital, precisa redes sociais e delivery</td>
+                </tr>
+                <tr>
+                    <td class="empresa-nome">Café Bar Central</td>
+                    <td class="setor">Hostelería - Bar</td>
+                    <td>Plaza de Lugo 15, A Coruña</td>
+                    <td class="contato">+34 981 22 34 56</td>
+                    <td class="contato">N/D - SEM SITE</td>
+                    <td class="funcionarios">3-5</td>
+                    <td class="potencial alto">ALTO</td>
+                    <td>Bar tradicional, precisa modernizar imagem</td>
+                </tr>
+                <tr>
+                    <td class="empresa-nome">Tapería A Taberna</td>
+                    <td class="setor">Hostelería - Tapas</td>
+                    <td>Rúa Franja 28, A Coruña</td>
+                    <td class="contato">+34 981 20 15 47</td>
+                    <td class="contato">N/D</td>
+                    <td class="funcionarios">4-6</td>
+                    <td class="potencial alto">ALTO</td>
+                    <td>Especialidade tapas, precisa Instagram e Google</td>
+                </tr>
+                <tr>
+                    <td class="empresa-nome">Pizzería Napoli</td>
+                    <td class="setor">Hostelería - Pizzas</td>
+                    <td>Rúa Real 89, A Coruña</td>
+                    <td class="contato">+34 981 23 67 89</td>
+                    <td class="contato">N/D - SEM DELIVERY ONLINE</td>
+                    <td class="funcionarios">6-8</td>
+                    <td class="potencial alto">ALTO</td>
+                    <td>Precisa plataforma delivery e redes sociais</td>
+                </tr>
+                <tr>
+                    <td class="empresa-nome">Marisquería Rías Baixas</td>
+                    <td class="setor">Hostelería - Mariscos</td>
+                    <td>Paseo Marítimo 12, A Coruña</td>
+                    <td class="contato">+34 981 25 43 21</td>
+                    <td class="contato">N/D</td>
+                    <td class="funcionarios">8-12</td>
+                    <td class="potencial medio">MÉDIO</td>
+                    <td>Restaurante turístico, precisa SEO local</td>
+                </tr>
+                
+                <!-- COMÉRCIOS LOCAIS -->
+                <tr>
+                    <td class="empresa-nome">Farmacia López</td>
+                    <td class="setor">Saúde - Farmácia</td>
+                    <td>Rúa San Andrés 45, A Coruña</td>
+                    <td class="contato">+34 981 20 87 65</td>
+                    <td class="contato">N/D - SEM SITE</td>
+                    <td class="funcionarios">3-4</td>
+                    <td class="potencial medio">MÉDIO</td>
+                    <td>Farmácia local, precisa presença online</td>
+                </tr>
+                <tr>
+                    <td class="empresa-nome">Panadería Artesanal Pan&Pan</td>
+                    <td class="setor">Alimentação - Padaria</td>
+                    <td>Rúa Torreiro 23, A Coruña</td>
+                    <td class="contato">+34 981 22 11 98</td>
+                    <td class="contato">N/D</td>
+                    <td class="funcionarios">4-6</td>
+                    <td class="potencial alto">ALTO</td>
+                    <td>Padaria artesanal, ideal para Instagram</td>
+                </tr>
+                <tr>
+                    <td class="empresa-nome">Peluquería Estilo</td>
+                    <td class="setor">Beleza - Cabeleireiro</td>
+                    <td>Rúa Nueva 67, A Coruña</td>
+                    <td class="contato">+34 981 24 56 78</td>
+                    <td class="contato">N/D - SEM RESERVAS ONLINE</td>
+                    <td class="funcionarios">3-4</td>
+                    <td class="potencial alto">ALTO</td>
+                    <td>Precisa sistema reservas online e Instagram</td>
+                </tr>
+                <tr>
+                    <td class="empresa-nome">Boutique María Moda</td>
+                    <td class="setor">Varejo - Moda Feminina</td>
+                    <td>Rúa Cardenal Cisneros 34, A Coruña</td>
+                    <td class="contato">+34 981 21 43 67</td>
+                    <td class="contato">N/D - SEM E-COMMERCE</td>
+                    <td class="funcionarios">2-3</td>
+                    <td class="potencial alto">ALTO</td>
+                    <td>Loja moda, precisa e-commerce e redes sociais</td>
+                </tr>
+                <tr>
+                    <td class="empresa-nome">Librería Galaxia</td>
+                    <td class="setor">Varejo - Livraria</td>
+                    <td>Rúa Riego de Agua 56, A Coruña</td>
+                    <td class="contato">+34 981 20 98 76</td>
+                    <td class="contato">N/D</td>
+                    <td class="funcionarios">2-3</td>
+                    <td class="potencial medio">MÉDIO</td>
+                    <td>Livraria independente, precisa venda online</td>
+                </tr>
+                
+                <!-- SERVIÇOS LOCAIS -->
+                <tr>
+                    <td class="empresa-nome">Academia Fitness Plus</td>
+                    <td class="setor">Fitness - Ginásio</td>
+                    <td>Rúa Barcelona 78, A Coruña</td>
+                    <td class="contato">+34 981 23 45 67</td>
+                    <td class="contato">N/D - SEM SITE</td>
+                    <td class="funcionarios">5-8</td>
+                    <td class="potencial alto">ALTO</td>
+                    <td>Academia local, precisa captação online de alunos</td>
+                </tr>
+                <tr>
+                    <td class="empresa-nome">Clínica Dental Sorriso</td>
+                    <td class="setor">Saúde - Dentista</td>
+                    <td>Rúa Linares Rivas 12, A Coruña</td>
+                    <td class="contato">+34 981 26 78 90</td>
+                    <td class="contato">N/D - SEM RESERVAS ONLINE</td>
+                    <td class="funcionários">4-6</td>
+                    <td class="potencial medio">MÉDIO</td>
+                    <td>Clínica dental, precisa SEO local e reservas</td>
+                </tr>
+                <tr>
+                    <td class="empresa-nome">Autoescuela Volante</td>
+                    <td class="setor">Educação - Autoescola</td>
+                    <td>Av. Finisterre 45, A Coruña</td>
+                    <td class="contato">+34 981 21 87 65</td>
+                    <td class="contato">autoescuela.volante@gmail.com</td>
+                    <td class="funcionarios">3-5</td>
+                    <td class="potencial alto">ALTO</td>
+                    <td>Autoescola, precisa captação digital de alunos</td>
+                </tr>
+                <tr>
+                    <td class="empresa-nome">Taller Mecánico Rápido</td>
+                    <td class="setor">Automotivo - Oficina</td>
+                    <td>Polígono Industrial Sabón, A Coruña</td>
+                    <td class="contato">+34 981 24 56 78</td>
+                    <td class="contato">N/D</td>
+                    <td class="funcionarios">4-7</td>
+                    <td class="potencial medio">MÉDIO</td>
+                    <td>Oficina mecânica, precisa SEO local</td>
+                </tr>
+                <tr>
+                    <td class="empresa-nome">Estética Belleza Total</td>
+                    <td class="setor">Beleza - Centro Estético</td>
+                    <td>Rúa Alcalde Lens 23, A Coruña</td>
+                    <td class="contato">+34 981 22 34 56</td>
+                    <td class="contato">N/D</td>
+                    <td class="funcionarios">3-4</td>
+                    <td class="potencial alto">ALTO</td>
+                    <td>Centro estético, ideal para redes sociais</td>
+                </tr>
+                
+                <!-- MAIS RESTAURANTES E BARES -->
+                <tr>
+                    <td class="empresa-nome">Bar Deportivo Champions</td>
+                    <td class="setor">Hostelería - Bar Esportivo</td>
+                    <td>Rúa Olmos 34, A Coruña</td>
+                    <td class="contato">+34 981 20 11 22</td>
+                    <td class="contato">N/D</td>
+                    <td class="funcionarios">2-4</td>
+                    <td class="potencial alto">ALTO</td>
+                    <td>Bar esportivo, precisa eventos online</td>
+                </tr>
+                <tr>
+                    <td class="empresa-nome">Cafetería Dulce Aroma</td>
+                    <td class="setor">Hostelería - Cafeteria</td>
+                    <td>Rúa Picavia 56, A Coruña</td>
+                    <td class="contato">+34 981 23 45 67</td>
+                    <td class="contato">N/D - SEM DELIVERY</td>
+                    <td class="funcionarios">3-5</td>
+                    <td class="potencial alto">ALTO</td>
+                    <td>Cafeteria, precisa delivery e Instagram</td>
+                </tr>
+                <tr>
+                    <td class="empresa-nome">Restaurante Casa Gallega</td>
+                    <td class="setor">Hostelería - Comida Regional</td>
+                    <td>Plaza España 8, A Coruña</td>
+                    <td class="contato">+34 981 25 67 89</td>
+                    <td class="contato">N/D</td>
+                    <td class="funcionarios">6-10</td>
+                    <td class="potencial medio">MÉDIO</td>
+                    <td>Comida típica, precisa presença turística online</td>
+                </tr>
+                <tr>
+                    <td class="empresa-nome">Heladería Gelato Italiano</td>
+                    <td class="setor">Hostelería - Sorveteria</td>
+                    <td>Paseo Marítimo 34, A Coruña</td>
+                    <td class="contato">+34 981 24 56 78</td>
+                    <td class="contato">N/D</td>
+                    <td class="funcionarios">2-4</td>
+                    <td class="potencial alto">ALTO</td>
+                    <td>Sorveteria, perfeita para Instagram</td>
+                </tr>
+                <tr>
+                    <td class="empresa-nome">Pub O'Malley's Irish</td>
+                    <td class="setor">Hostelería - Pub</td>
+                    <td>Rúa Barrera 45, A Coruña</td>
+                    <td class="contato">+34 981 21 98 76</td>
+                    <td class="contato">N/D</td>
+                    <td class="funcionarios">4-6</td>
+                    <td class="potencial alto">ALTO</td>
+                    <td>Pub irlandês, precisa eventos e redes sociais</td>
+                </tr>
+                
+                <!-- MAIS COMÉRCIOS -->
+                <tr>
+                    <td class="empresa-nome">Floristería Pétalos</td>
+                    <td class="setor">Varejo - Floricultura</td>
+                    <td>Rúa República Argentina 67, A Coruña</td>
+                    <td class="contato">+34 981 22 11 33</td>
+                    <td class="contato">N/D - SEM E-COMMERCE</td>
+                    <td class="funcionarios">2-3</td>
+                    <td class="potencial alto">ALTO</td>
+                    <td>Floricultura, ideal para Instagram e vendas online</td>
+                </tr>
+                <tr>
+                    <td class="empresa-nome">Zapatería El Zapato</td>
+                    <td class="setor">Varejo - Calçados</td>
+                    <td>Rúa Real 123, A Coruña</td>
+                    <td class="contato">+34 981 23 44 55</td>
+                    <td class="contato">N/D</td>
+                    <td class="funcionarios">2-3</td>
+                    <td class="potencial medio">MÉDIO</td>
+                    <td>Loja calçados, precisa catálogo online</td>
+                </tr>
+                <tr>
+                    <td class="empresa-nome">Óptica Visión Clara</td>
+                    <td class="setor">Saúde - Óptica</td>
+                    <td>Rúa Cantón Grande 89, A Coruña</td>
+                    <td class="contato">+34 981 25 66 77</td>
+                    <td class="contato">N/D</td>
+                    <td class="funcionarios">3-4</td>
+                    <td class="potencial medio">MÉDIO</td>
+                    <td>Óptica local, precisa SEO e presença online</td>
+                </tr>
+                <tr>
+                    <td class="empresa-nome">Tienda de Mascotas Peludos</td>
+                    <td class="setor">Varejo - Pet Shop</td>
+                    <td>Rúa María Pita 56, A Coruña</td>
+                    <td class="contato">+34 981 24 77 88</td>
+                    <td class="contato">N/D - SEM E-COMMERCE</td>
+                    <td class="funcionarios">2-3</td>
+                    <td class="potencial alto">ALTO</td>
+                    <td>Pet shop, precisa e-commerce e redes sociais</td>
+                </tr>
+                <tr>
+                    <td class="empresa-nome">Ferretería El Martillo</td>
+                    <td class="setor">Varejo - Ferragem</td>
+                    <td>Av. Alfonso Molina 234, A Coruña</td>
+                    <td class="contato">+34 981 26 88 99</td>
+                    <td class="contato">N/D</td>
+                    <td class="funcionarios">3-5</td>
+                    <td class="potencial baixo">BAIXO</td>
+                    <td>Ferragem tradicional, público menos digital</td>
+                </tr>
+                
+                <!-- MAIS SERVIÇOS -->
+                <tr>
+                    <td class="empresa-nome">Academia de Idiomas Babel</td>
+                    <td class="setor">Educação - Idiomas</td>
+                    <td>Rúa Juana de Vega 45, A Coruña</td>
+                    <td class="contato">+34 981 21 55 66</td>
+                    <td class="contato">babel.idiomas@gmail.com</td>
+                    <td class="funcionarios">4-6</td>
+                    <td class="potencial alto">ALTO</td>
+                    <td>Academia idiomas, precisa captação online</td>
+                </tr>
+                <tr>
+                    <td class="empresa-nome">Inmobiliaria Costa Verde</td>
+                    <td class="setor">Serviços - Imobiliária</td>
+                    <td>Rúa Durán Loriga 78, A Coruña</td>
+                    <td class="contato">+34 981 23 66 77</td>
+                    <td class="contato">N/D - SEM SITE</td>
+                    <td class="funcionarios">3-5</td>
+                    <td class="potencial alto">ALTO</td>
+                    <td>Imobiliária, crucial ter presença digital</td>
+                </tr>
+                <tr>
+                    <td class="empresa-nome">Gestoría Administrativa Coruña</td>
+                    <td class="setor">Serviços - Contabilidade</td>
+                    <td>Rúa República El Salvador 34, A Coruña</td>
+                    <td class="contato">+34 981 22 77 88</td>
+                    <td class="contato">N/D</td>
+                    <td class="funcionarios">2-4</td>
+                    <td class="potencial medio">MÉDIO</td>
+                    <td>Gestoría, precisa SEO local para captação</td>
+                </tr>
+                <tr>
+                    <td class="empresa-nome">Estudio Fotográfico Lens</td>
+                    <td class="setor">Serviços - Fotografia</td>
+                    <td>Rúa Alcalde Lens 67, A Coruña</td>
+                    <td class="contato">+34 981 24 88 99</td>
+                    <td class="contato">N/D - SEM PORTFOLIO ONLINE</td>
+                    <td class="funcionarios">1-2</td>
+                    <td class="potencial alto">ALTO</td>
+                    <td>Estúdio foto, precisa portfolio e Instagram</td>
+                </tr>
+                <tr>
+                    <td class="empresa-nome">Taxi Coruña 24h</td>
+                    <td class="setor">Transporte - Táxi</td>
+                    <td>A Coruña (Móvel)</td>
+                    <td class="contato">+34 981 25 99 00</td>
+                    <td class="contato">N/D - SEM APP</td>
+                    <td class="funcionarios">1</td>
+                    <td class="potencial medio">MÉDIO</td>
+                    <td>Táxi independente, precisa presença online</td>
+                </tr>
+                
+                <!-- ÚLTIMOS NEGÓCIOS -->
+                <tr>
+                    <td class="empresa-nome">Lavandería Speed Clean</td>
+                    <td class="setor">Serviços - Lavanderia</td>
+                    <td>Rúa Menéndez Pelayo 89, A Coruña</td>
+                    <td class="contato">+34 981 26 00 11</td>
+                    <td class="contato">N/D</td>
+                    <td class="funcionarios">2-3</td>
+                    <td class="potencial medio">MÉDIO</td>
+                    <td>Lavanderia, precisa serviço coleta/entrega online</td>
+                </tr>
+                <tr>
+                    <td class="empresa-nome">Parafarmacia Natural</td>
+                    <td class="setor">Saúde - Parafarmácia</td>
+                    <td>Rúa Salvador de Madariaga 23, A Coruña</td>
+                    <td class="contato">+34 981 27 11 22</td>
+                    <td class="contato">N/D - SEM E-COMMERCE</td>
+                    <td class="funcionarios">2-3</td>
+                    <td class="potencial alto">ALTO</td>
+                    <td>Produtos naturais, precisa e-commerce</td>
+                </tr>
+       </tbody>
+        </table>
+
+        <div class="tip-box">
+            💡 Dica: Use esta lista para campanhas de marketing segmentadas no Facebook, Instagram e Google porfi.
+
         </div>
-        
-        <div class="service-item">
-            <div class="checkmark">✅</div>
-            <div>
-                <h3>Landing page que convierte</h3>
-                <p>Diseño y desarrollo de una landing page optimizada para conversiones con integración de analytics.</p>
-            </div>
-        </div>
-        
-        <div class="service-item">
-            <div class="checkmark">✅</div>
-            <div>
-                <h3>Consultoría mensual de marketing</h3>
-                <p>Sesiones mensuales de 1 hora para analizar resultados, ajustar estrategias y planificar próximos pasos.</p>
-            </div>
-        </div>
-        
-        <div class="service-item">
-            <div class="checkmark">✅</div>
-            <div>
-                <h3>SEO básico para mejorar tu alcance</h3>
-                <p>Optimización básica de SEO on-page y técnico para mejorar tu posicionamiento en buscadores orgánicos.</p>
-            </div>
-        </div>
-        
-        <div class="bonus">
-            <h3 class="bonus-title">✨ Bonus Exclusivo</h3>
-            <p>Diagnóstico completo de negocio + un día de filmación y fotografía profesional para tu contenido</p>
-        </div>
-    </section>
+    </div>
+
+    <script>
+        function downloadCSV() {
+            let table = document.getElementById("empresasTable");
+            let rows = table.querySelectorAll("tr");
+            let csv = [];
+
+            for (let row of rows) {
+                let cols = row.querySelectorAll("th, td");
+                let rowData = [];
+                for (let col of cols) {
+                    rowData.push('"' + col.innerText.replace(/"/g, '""') + '"');
+                }
+                csv.push(rowData.join(","));
+            }
+
+            let csvFile = new Blob([csv.join("\n")], { type: "text/csv" });
+            let downloadLink = document.createElement("a");
+            downloadLink.download = "empresas_acoruna.csv";
+            downloadLink.href = window.URL.createObjectURL(csvFile);
+            downloadLink.click();
+        }
+
+        function downloadExcel() {
+            let table = document.getElementById("empresasTable");
+            let rows = table.querySelectorAll("tr");
+            let xls = "<table border='1'>";
+
+            for (let row of rows) {
+                xls += "<tr>";
+                let cols = row.querySelectorAll("th, td");
+                for (let col of cols) {
+                    xls += "<td>" + col.innerText + "</td>";
+                }
+                xls += "</tr>";
+            }
+
+            xls += "</table>";
+            let data = new Blob([xls], { type: "application/vnd.ms-excel" });
+            let downloadLink = document.createElement("a");
+            downloadLink.download = "empresas_acoruna.xls";
+            downloadLink.href = window.URL.createObjectURL(data);
+            downloadLink.click();
+        }
+    </script>
+    </table>
+    </tbody>
+    <head>
 </body>
-</html>
+</html> 
