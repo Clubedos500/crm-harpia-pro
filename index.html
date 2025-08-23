@@ -471,6 +471,10 @@
         @media (max-width: 768px) {
             .container {
                 padding: 20px 15px;
+                /* allow scrolling on small screens so footer/CTA isn't clipped */
+                height: auto !important;
+                min-height: 100vh;
+                overflow-y: auto !important;
             }
             
             .title {
@@ -483,6 +487,44 @@
             
             .result-item {
                 margin: 0;
+            }
+            /* allow main content to grow naturally instead of forcing 100% height */
+            .content {
+                height: auto !important;
+            }
+            /* Mobile performance: disable heavy animated background elements */
+            .bg-elements,
+            .geometric-shape,
+            .light-beam,
+            .light-beam2,
+            .features::after,
+            .features::before,
+            .result-item::before {
+                display: none !important;
+                opacity: 0 !important;
+                animation: none !important;
+            }
+            /* reduce shadows and heavy paints on mobile */
+            .features,
+            .result-item,
+            .cta {
+                box-shadow: none !important;
+                border-radius: 16px !important;
+            }
+            /* larger, reachable CTA on mobile */
+            .cta {
+                display: inline-block;
+                padding: 14px 24px !important;
+                font-size: 1rem !important;
+                min-height: 48px;
+                line-height: 1.2;
+                -webkit-tap-highlight-color: rgba(0,0,0,0.05);
+                /* make CTA full width and easier to tap on mobile */
+                width: calc(100% - 30px);
+                max-width: 560px;
+                box-sizing: border-box;
+                margin: 0 auto;
+                text-align: center;
             }
         }
     </style>
