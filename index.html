@@ -32,14 +32,15 @@
         
         .container {
             width: 100vw;
-            height: 100vh;
+            /* allow the container to grow beyond the viewport to enable scrolling on small screens */
+            min-height: 100vh;
             position: relative;
             background: radial-gradient(ellipse at top left, #2ecc71 0%, #27ae60 25%, #ffffff 45%, #f8f9fa 65%, #2ecc71 85%, #1e8449 100%);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             padding: 35px 50px;
-            overflow: hidden;
+            overflow: visible;
         }
         
         /* Elementos geométricos animados de fundo */
