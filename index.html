@@ -1,612 +1,559 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PMEs A Coruña - Prospects Marketing Digital</title>
+    <title>Paquete Harpia Growth Acelerado - Dynamic</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: #333;
-        }
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            max-width: 1500px;
-            margin: 0 auto;
-        }
-        h1 {
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 10px;
-            font-size: 2.2em;
-            font-weight: 300;
-        }
-        .subtitle {
-            text-align: center;
-            color: #6c757d;
-            margin-bottom: 30px;
-            font-size: 1.1em;
-        }
-        .highlight-box {
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        .download-section {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        .download-btn {
-            display: inline-block;
-            background: #28a745;
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            margin: 10px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        .download-btn:hover {
-            background: #218838;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
-        }
-        .csv-btn {
-            background: #17a2b8;
-        }
-        .csv-btn:hover {
-            background: #138496;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            font-size: 13px;
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        th {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 12px 8px;
-            text-align: left;
-            font-weight: 600;
-            font-size: 12px;
-        }
-        td {
-            padding: 10px 8px;
-            border-bottom: 1px solid #eee;
-            vertical-align: top;
-        }
-        tr:hover {
-            background: #f8f9fa;
-        }
-        .empresa-nome {
-            font-weight: 600;
-            color: #2c3e50;
-        }
-        .setor {
-            color: #6c757d;
-            font-style: italic;
-        }
-        .contato {
-            font-size: 11px;
-        }
-        .funcionarios {
-            text-align: center;
-            font-weight: 600;
-            color: #28a745;
-        }
-        .potencial {
-            text-align: center;
-            font-weight: 600;
-        }
-        .alto { background: #d4edda; color: #155724; }
-        .medio { background: #fff3cd; color: #856404; }
-        .baixo { background: #f8d7da; color: #721c24; }
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&display=swap');
         
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .stat-card {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden;
+        }
+        
+        .container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            background: radial-gradient(ellipse at top left, #2ecc71 0%, #27ae60 25%, #ffffff 45%, #f8f9fa 65%, #2ecc71 85%, #1e8449 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 35px 50px;
+            overflow: hidden;
+        }
+        
+        /* Elementos geométricos animados de fundo */
+        .bg-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .geometric-shape {
+            position: absolute;
+            opacity: 0.15;
+        }
+        
+        .hexagon {
+            width: 120px;
+            height: 104px;
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            top: 15%;
+            right: 8%;
+            animation: rotate360 8s linear infinite;
+        }
+        
+        .diamond {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #000, #333);
+            transform: rotate(45deg);
+            top: 70%;
+            left: 5%;
+            animation: bounce 4s ease-in-out infinite;
+        }
+        
+        .wave {
+            width: 300px;
+            height: 80px;
+            background: linear-gradient(90deg, #2ecc71, transparent, #2ecc71);
+            border-radius: 40px;
+            top: 25%;
+            left: -50px;
+            animation: wave-move 6s ease-in-out infinite;
+        }
+        
+        .circle-large {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(46, 204, 113, 0.3), rgba(46, 204, 113, 0.1));
+            border-radius: 50%;
+            bottom: 10%;
+            right: -50px;
+            animation: pulse-scale 5s ease-in-out infinite;
+        }
+        
+        .triangle {
+            width: 0;
+            height: 0;
+            border-left: 60px solid transparent;
+            border-right: 60px solid transparent;
+            border-bottom: 104px solid #2ecc71;
+            top: 50%;
+            right: 20%;
+            animation: float-triangle 7s ease-in-out infinite;
+        }
+        
+        @keyframes rotate360 {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: rotate(45deg) translateY(0px); }
+            50% { transform: rotate(45deg) translateY(-30px); }
+        }
+        
+        @keyframes wave-move {
+            0%, 100% { transform: translateX(0px) scaleX(1); }
+            50% { transform: translateX(50px) scaleX(1.2); }
+        }
+        
+        @keyframes pulse-scale {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.3); opacity: 0.1; }
+        }
+        
+        @keyframes float-triangle {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(10deg); }
+            66% { transform: translateY(10px) rotate(-5deg); }
+        }
+        
+        /* Efeitos de luz dinâmicos */
+        .light-beam {
+            position: absolute;
+            width: 2px;
+            height: 100vh;
+            background: linear-gradient(to bottom, transparent, #2ecc71, transparent);
+            left: 20%;
+            top: 0;
+            animation: beam-sweep 8s linear infinite;
+            opacity: 0.4;
+        }
+        
+        .light-beam2 {
+            position: absolute;
+            width: 2px;
+            height: 100vh;
+            background: linear-gradient(to bottom, transparent, #27ae60, transparent);
+            right: 30%;
+            top: 0;
+            animation: beam-sweep 10s linear infinite reverse;
+            opacity: 0.3;
+        }
+        
+        @keyframes beam-sweep {
+            0% { transform: translateX(-100px) scaleY(0.5); }
+            50% { transform: translateX(100px) scaleY(1.2); }
+            100% { transform: translateX(-100px) scaleY(0.5); }
+        }
+        
+        .content {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .header {
             text-align: center;
-            border-left: 4px solid #28a745;
+            margin-bottom: 25px;
+            position: relative;
         }
-        .stat-number {
-            font-size: 2em;
-            font-weight: bold;
-            color: #28a745;
+        
+        .title {
+            font-size: 3.8rem;
+            font-weight: 900;
+            color: #000;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.2);
+            background: linear-gradient(45deg, #000 30%, #2ecc71 50%, #000 70%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: title-glow 3s ease-in-out infinite alternate;
+            letter-spacing: -2px;
         }
-        .copy-area {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            padding: 15px;
-            border-radius: 8px;
-            font-family: monospace;
-            font-size: 11px;
-            margin: 20px 0;
-            max-height: 300px;
-            overflow-y: auto;
+        
+        @keyframes title-glow {
+            0% { filter: drop-shadow(0 0 5px rgba(46, 204, 113, 0.3)); }
+            100% { filter: drop-shadow(0 0 20px rgba(46, 204, 113, 0.6)); }
         }
-        .copy-btn {
-            background: #6c757d;
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #ffcc00;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1.3fr 0.7fr;
+            gap: 35px;
+            flex: 1;
+            align-items: center;
+        }
+        
+        .features {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.2);
+            border: 4px solid #2ecc71;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        .features::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #2ecc71, #27ae60, #2ecc71, #27ae60);
+            border-radius: 30px;
+            z-index: -1;
+            animation: border-glow 4s linear infinite;
+        }
+        
+        @keyframes border-glow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .features::after {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: conic-gradient(from 0deg, transparent, rgba(46, 204, 113, 0.1), transparent);
+            animation: rotate-bg 6s linear infinite;
+        }
+        
+        @keyframes rotate-bg {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .features h3 {
+            font-size: 1.5rem;
+            color: #000;
+            margin-bottom: 20px;
+            font-weight: 800;
+            position: relative;
+            z-index: 2;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .feature-list {
+            list-style: none;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 8px 15px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            background: rgba(46, 204, 113, 0.05);
+        }
+        
+        .feature-item:hover {
+            transform: translateX(15px) scale(1.02);
+            background: rgba(46, 204, 113, 0.15);
+            box-shadow: 0 8px 25px rgba(46, 204, 113, 0.2);
+        }
+        
+        .checkmark {
+            color: #2ecc71;
+            font-size: 1.6rem;
+            margin-right: 15px;
+            font-weight: 900;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: check-pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes check-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .feature-text {
+            font-size: 0.95rem;
+            color: #000;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        
+        .results {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .results h3 {
+            font-size: 1.8rem;
+            color: #000;
+            margin-bottom: 25px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .results-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+        }
+        
+        .result-item {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 50%, #1e8449 100%);
+            padding: 20px;
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(46, 204, 113, 0.4);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid rgba(255,255,255,0.3);
+        }
+        
+        .result-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer-result 4s linear infinite;
+        }
+        
+        @keyframes shimmer-result {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        .result-item:hover {
+            transform: translateY(-12px) scale(1.08);
+            box-shadow: 0 30px 70px rgba(46, 204, 113, 0.5);
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 50%, #27ae60 100%);
+        }
+        
+        .result-icon {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+            filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.3));
+            animation: icon-bounce 3s ease-in-out infinite;
+        }
+        
+        @keyframes icon-bounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        .result-text {
+            font-size: 1rem;
             color: white;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        .tip-box {
-            background: #e3f2fd;
-            border: 1px solid #90caf9;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
+        
+        .footer {
+            text-align: center;
+            margin-top: 15px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .cta {
+            font-size: 1.5rem;
+            color: white;
+            font-weight: 800;
+            background: linear-gradient(135deg, #000 0%, #333 50%, #000 100%);
+            padding: 20px 50px;
+            border-radius: 50px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #2ecc71;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(46, 204, 113, 0.4), transparent);
+            transition: left 0.6s;
+        }
+        
+        .cta:hover::before {
+            left: 100%;
+        }
+        
+        .cta:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 50%, #2ecc71 100%);
+        }
+        
+        @media (max-width: 1200px) {
+            .container {
+                padding: 25px 35px;
+            }
+            
+            .title {
+                font-size: 3rem;
+            }
+            
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .results-grid {
+                flex-direction: row;
+                justify-content: space-around;
+            }
+            
+            .result-item {
+                flex: 1;
+                margin: 0 5px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .title {
+                font-size: 2.2rem;
+            }
+            
+            .results-grid {
+                flex-direction: column;
+            }
+            
+            .result-item {
+                margin: 0;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎯 Pequenas e Médias Empresas - A Coruña</h1>
-        <div class="subtitle">Prospects Qualificados para Marketing Digital • Atualizado Agosto 2025</div>
-        
-        <div class="highlight-box">
-            <h3>📈 Por que estas empresas são perfeitas para Marketing Digital?</h3>
-            <p><strong>✅ Não têm departamento de marketing próprio</strong> • <strong>✅ Precisam aumentar vendas</strong> • <strong>✅ Orçamento acessível</strong> • <strong>✅ Decisão rápida</strong></p>
-        </div>
-
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-number">50</div>
-                <div>Empresas Mapeadas</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">1.485</div>
-                <div>Total Comercios Locais</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">68%</div>
-                <div>Negócios Diversos</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">21%</div>
-                <div>Hostelería</div>
-            </div>
+        <div class="bg-elements">
+            <div class="geometric-shape hexagon"></div>
+            <div class="geometric-shape diamond"></div>
+            <div class="geometric-shape wave"></div>
+            <div class="geometric-shape circle-large"></div>
+            <div class="geometric-shape triangle"></div>
         </div>
         
-        <div class="download-section">
-            <h3>📊 Download da Lista de Prospects</h3>
-            <p>Lista qualificada de PMEs locais que <strong>realmente precisam</strong> de marketing digital:</p>
-            <button class="download-btn" onclick="downloadExcel()">📈 Download Excel (.xlsx)</button>
-            <button class="download-btn csv-btn" onclick="downloadCSV()">📋 Download CSV</button>
-        </div>
-
-        <table id="empresasTable">
-            <thead>
-                <tr>
-                    <th>Empresa</th>
-                    <th>Setor</th>
-                    <th>Endereço</th>
-                    <th>Telefone</th>
-                    <th>Website/Email</th>
-                    <th>Funcionários</th>
-                    <th>Potencial Marketing</th>
-                    <th>Observações/Necessidades</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- RESTAURANTES E BARES -->
-                <tr>
-                    <td class="empresa-nome">Restaurante O Bebedeiro</td>
-                    <td class="setor">Hostelería - Restaurante</td>
-                    <td>Rúa Ángel Rebollo 34, A Coruña</td>
-                    <td class="contato">+34 981 21 06 09</td>
-                    <td class="contato">N/D - SEM SITE</td>
-                    <td class="funcionarios">5-8</td>
-                    <td class="potencial alto">ALTO</td>
-                    <td>Sem presença digital, precisa redes sociais e delivery</td>
-                </tr>
-                <tr>
-                    <td class="empresa-nome">Café Bar Central</td>
-                    <td class="setor">Hostelería - Bar</td>
-                    <td>Plaza de Lugo 15, A Coruña</td>
-                    <td class="contato">+34 981 22 34 56</td>
-                    <td class="contato">N/D - SEM SITE</td>
-                    <td class="funcionarios">3-5</td>
-                    <td class="potencial alto">ALTO</td>
-                    <td>Bar tradicional, precisa modernizar imagem</td>
-                </tr>
-                <tr>
-                    <td class="empresa-nome">Tapería A Taberna</td>
-                    <td class="setor">Hostelería - Tapas</td>
-                    <td>Rúa Franja 28, A Coruña</td>
-                    <td class="contato">+34 981 20 15 47</td>
-                    <td class="contato">N/D</td>
-                    <td class="funcionarios">4-6</td>
-                    <td class="potencial alto">ALTO</td>
-                    <td>Especialidade tapas, precisa Instagram e Google</td>
-                </tr>
-                <tr>
-                    <td class="empresa-nome">Pizzería Napoli</td>
-                    <td class="setor">Hostelería - Pizzas</td>
-                    <td>Rúa Real 89, A Coruña</td>
-                    <td class="contato">+34 981 23 67 89</td>
-                    <td class="contato">N/D - SEM DELIVERY ONLINE</td>
-                    <td class="funcionarios">6-8</td>
-                    <td class="potencial alto">ALTO</td>
-                    <td>Precisa plataforma delivery e redes sociais</td>
-                </tr>
-                <tr>
-                    <td class="empresa-nome">Marisquería Rías Baixas</td>
-                    <td class="setor">Hostelería - Mariscos</td>
-                    <td>Paseo Marítimo 12, A Coruña</td>
-                    <td class="contato">+34 981 25 43 21</td>
-                    <td class="contato">N/D</td>
-                    <td class="funcionarios">8-12</td>
-                    <td class="potencial medio">MÉDIO</td>
-                    <td>Restaurante turístico, precisa SEO local</td>
-                </tr>
+        <div class="light-beam"></div>
+        <div class="light-beam2"></div>
+        
+        <div class="content">
+            <div class="header">
+                <h1 class="title">Paquete Harpia Growth Acelerado</h1>
+                <p class="subtitle">Transforma tu negocio hoy</p>
+            </div>
+            
+            <div class="main-content">
+                <div class="features">
+                    <h3>Lo que incluye nuestro paquete</h3>
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <span class="checkmark">✅</span>
+                            <span class="feature-text">3 posts semanales (Reels) – contenido atractivo</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="checkmark">✅</span>
+                            <span class="feature-text">3 posts semanales (Stories) – mantiene tu marca activa</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="checkmark">✅</span>
+                            <span class="feature-text">Gestión completa de redes sociales</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="checkmark">✅</span>
+                            <span class="feature-text">Actualización quincenal de Google Mi Negocio</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="checkmark">✅</span>
+                            <span class="feature-text">Integración con la plataforma Meta</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="checkmark">✅</span>
+                            <span class="feature-text">Planificación SEO</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="checkmark">✅</span>
+                            <span class="feature-text">2 diseños quincenales para tráfico pago</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="checkmark">✅</span>
+                            <span class="feature-text">Creación de bot básico</span>
+                        </li>
+                    </ul>
+                </div>
                 
-                <!-- COMÉRCIOS LOCAIS -->
-                <tr>
-                    <td class="empresa-nome">Farmacia López</td>
-                    <td class="setor">Saúde - Farmácia</td>
-                    <td>Rúa San Andrés 45, A Coruña</td>
-                    <td class="contato">+34 981 20 87 65</td>
-                    <td class="contato">N/D - SEM SITE</td>
-                    <td class="funcionarios">3-4</td>
-                    <td class="potencial medio">MÉDIO</td>
-                    <td>Farmácia local, precisa presença online</td>
-                </tr>
-                <tr>
-                    <td class="empresa-nome">Panadería Artesanal Pan&Pan</td>
-                    <td class="setor">Alimentação - Padaria</td>
-                    <td>Rúa Torreiro 23, A Coruña</td>
-                    <td class="contato">+34 981 22 11 98</td>
-                    <td class="contato">N/D</td>
-                    <td class="funcionarios">4-6</td>
-                    <td class="potencial alto">ALTO</td>
-                    <td>Padaria artesanal, ideal para Instagram</td>
-                </tr>
-                <tr>
-                    <td class="empresa-nome">Peluquería Estilo</td>
-                    <td class="setor">Beleza - Cabeleireiro</td>
-                    <td>Rúa Nueva 67, A Coruña</td>
-                    <td class="contato">+34 981 24 56 78</td>
-                    <td class="contato">N/D - SEM RESERVAS ONLINE</td>
-                    <td class="funcionarios">3-4</td>
-                    <td class="potencial alto">ALTO</td>
-                    <td>Precisa sistema reservas online e Instagram</td>
-                </tr>
-                <tr>
-                    <td class="empresa-nome">Boutique María Moda</td>
-                    <td class="setor">Varejo - Moda Feminina</td>
-                    <td>Rúa Cardenal Cisneros 34, A Coruña</td>
-                    <td class="contato">+34 981 21 43 67</td>
-                    <td class="contato">N/D - SEM E-COMMERCE</td>
-                    <td class="funcionarios">2-3</td>
-                    <td class="potencial alto">ALTO</td>
-                    <td>Loja moda, precisa e-commerce e redes sociais</td>
-                </tr>
-                <tr>
-                    <td class="empresa-nome">Librería Galaxia</td>
-                    <td class="setor">Varejo - Livraria</td>
-                    <td>Rúa Riego de Agua 56, A Coruña</td>
-                    <td class="contato">+34 981 20 98 76</td>
-                    <td class="contato">N/D</td>
-                    <td class="funcionarios">2-3</td>
-                    <td class="potencial medio">MÉDIO</td>
-                    <td>Livraria independente, precisa venda online</td>
-                </tr>
-                
-                <!-- SERVIÇOS LOCAIS -->
-                <tr>
-                    <td class="empresa-nome">Academia Fitness Plus</td>
-                    <td class="setor">Fitness - Ginásio</td>
-                    <td>Rúa Barcelona 78, A Coruña</td>
-                    <td class="contato">+34 981 23 45 67</td>
-                    <td class="contato">N/D - SEM SITE</td>
-                    <td class="funcionarios">5-8</td>
-                    <td class="potencial alto">ALTO</td>
-                    <td>Academia local, precisa captação online de alunos</td>
-                </tr>
-                <tr>
-                    <td class="empresa-nome">Clínica Dental Sorriso</td>
-                    <td class="setor">Saúde - Dentista</td>
-                    <td>Rúa Linares Rivas 12, A Coruña</td>
-                    <td class="contato">+34 981 26 78 90</td>
-                    <td class="contato">N/D - SEM RESERVAS ONLINE</td>
-                    <td class="funcionários">4-6</td>
-                    <td class="potencial medio">MÉDIO</td>
-                    <td>Clínica dental, precisa SEO local e reservas</td>
-                </tr>
-                <tr>
-                    <td class="empresa-nome">Autoescuela Volante</td>
-                    <td class="setor">Educação - Autoescola</td>
-                    <td>Av. Finisterre 45, A Coruña</td>
-                    <td class="contato">+34 981 21 87 65</td>
-                    <td class="contato">autoescuela.volante@gmail.com</td>
-                    <td class="funcionarios">3-5</td>
-                    <td class="potencial alto">ALTO</td>
-                    <td>Autoescola, precisa captação digital de alunos</td>
-                </tr>
-                <tr>
-                    <td class="empresa-nome">Taller Mecánico Rápido</td>
-                    <td class="setor">Automotivo - Oficina</td>
-                    <td>Polígono Industrial Sabón, A Coruña</td>
-                    <td class="contato">+34 981 24 56 78</td>
-                    <td class="contato">N/D</td>
-                    <td class="funcionarios">4-7</td>
-                    <td class="potencial medio">MÉDIO</td>
-                    <td>Oficina mecânica, precisa SEO local</td>
-                </tr>
-                <tr>
-                    <td class="empresa-nome">Estética Belleza Total</td>
-                    <td class="setor">Beleza - Centro Estético</td>
-                    <td>Rúa Alcalde Lens 23, A Coruña</td>
-                    <td class="contato">+34 981 22 34 56</td>
-                    <td class="contato">N/D</td>
-                    <td class="funcionarios">3-4</td>
-                    <td class="potencial alto">ALTO</td>
-                    <td>Centro estético, ideal para redes sociais</td>
-                </tr>
-                
-                <!-- MAIS RESTAURANTES E BARES -->
-                <tr>
-                    <td class="empresa-nome">Bar Deportivo Champions</td>
-                    <td class="setor">Hostelería - Bar Esportivo</td>
-                    <td>Rúa Olmos 34, A Coruña</td>
-                    <td class="contato">+34 981 20 11 22</td>
-                    <td class="contato">N/D</td>
-                    <td class="funcionarios">2-4</td>
-                    <td class="potencial alto">ALTO</td>
-                    <td>Bar esportivo, precisa eventos online</td>
-                </tr>
-                <tr>
-                    <td class="empresa-nome">Cafetería Dulce Aroma</td>
-                    <td class="setor">Hostelería - Cafeteria</td>
-                    <td>Rúa Picavia 56, A Coruña</td>
-                    <td class="contato">+34 981 23 45 67</td>
-                    <td class="contato">N/D - SEM DELIVERY</td>
-                    <td class="funcionarios">3-5</td>
-                    <td class="potencial alto">ALTO</td>
-                    <td>Cafeteria, precisa delivery e Instagram</td>
-                </tr>
-                <tr>
-                    <td class="empresa-nome">Restaurante Casa Gallega</td>
-                    <td class="setor">Hostelería - Comida Regional</td>
-                    <td>Plaza España 8, A Coruña</td>
-                    <td class="contato">+34 981 25 67 89</td>
-                    <td class="contato">N/D</td>
-                    <td class="funcionarios">6-10</td>
-                    <td class="potencial medio">MÉDIO</td>
-                    <td>Comida típica, precisa presença turística online</td>
-                </tr>
-                <tr>
-                    <td class="empresa-nome">Heladería Gelato Italiano</td>
-                    <td class="setor">Hostelería - Sorveteria</td>
-                    <td>Paseo Marítimo 34, A Coruña</td>
-                    <td class="contato">+34 981 24 56 78</td>
-                    <td class="contato">N/D</td>
-                    <td class="funcionarios">2-4</td>
-                    <td class="potencial alto">ALTO</td>
-                    <td>Sorveteria, perfeita para Instagram</td>
-                </tr>
-                <tr>
-                    <td class="empresa-nome">Pub O'Malley's Irish</td>
-                    <td class="setor">Hostelería - Pub</td>
-                    <td>Rúa Barrera 45, A Coruña</td>
-                    <td class="contato">+34 981 21 98 76</td>
-                    <td class="contato">N/D</td>
-                    <td class="funcionarios">4-6</td>
-                    <td class="potencial alto">ALTO</td>
-                    <td>Pub irlandês, precisa eventos e redes sociais</td>
-                </tr>
-                
-                <!-- MAIS COMÉRCIOS -->
-                <tr>
-                    <td class="empresa-nome">Floristería Pétalos</td>
-                    <td class="setor">Varejo - Floricultura</td>
-                    <td>Rúa República Argentina 67, A Coruña</td>
-                    <td class="contato">+34 981 22 11 33</td>
-                    <td class="contato">N/D - SEM E-COMMERCE</td>
-                    <td class="funcionarios">2-3</td>
-                    <td class="potencial alto">ALTO</td>
-                    <td>Floricultura, ideal para Instagram e vendas online</td>
-                </tr>
-                <tr>
-                    <td class="empresa-nome">Zapatería El Zapato</td>
-                    <td class="setor">Varejo - Calçados</td>
-                    <td>Rúa Real 123, A Coruña</td>
-                    <td class="contato">+34 981 23 44 55</td>
-                    <td class="contato">N/D</td>
-                    <td class="funcionarios">2-3</td>
-                    <td class="potencial medio">MÉDIO</td>
-                    <td>Loja calçados, precisa catálogo online</td>
-                </tr>
-                <tr>
-                    <td class="empresa-nome">Óptica Visión Clara</td>
-                    <td class="setor">Saúde - Óptica</td>
-                    <td>Rúa Cantón Grande 89, A Coruña</td>
-                    <td class="contato">+34 981 25 66 77</td>
-                    <td class="contato">N/D</td>
-                    <td class="funcionarios">3-4</td>
-                    <td class="potencial medio">MÉDIO</td>
-                    <td>Óptica local, precisa SEO e presença online</td>
-                </tr>
-                <tr>
-                    <td class="empresa-nome">Tienda de Mascotas Peludos</td>
-                    <td class="setor">Varejo - Pet Shop</td>
-                    <td>Rúa María Pita 56, A Coruña</td>
-                    <td class="contato">+34 981 24 77 88</td>
-                    <td class="contato">N/D - SEM E-COMMERCE</td>
-                    <td class="funcionarios">2-3</td>
-                    <td class="potencial alto">ALTO</td>
-                    <td>Pet shop, precisa e-commerce e redes sociais</td>
-                </tr>
-                <tr>
-                    <td class="empresa-nome">Ferretería El Martillo</td>
-                    <td class="setor">Varejo - Ferragem</td>
-                    <td>Av. Alfonso Molina 234, A Coruña</td>
-                    <td class="contato">+34 981 26 88 99</td>
-                    <td class="contato">N/D</td>
-                    <td class="funcionarios">3-5</td>
-                    <td class="potencial baixo">BAIXO</td>
-                    <td>Ferragem tradicional, público menos digital</td>
-                </tr>
-                
-                <!-- MAIS SERVIÇOS -->
-                <tr>
-                    <td class="empresa-nome">Academia de Idiomas Babel</td>
-                    <td class="setor">Educação - Idiomas</td>
-                    <td>Rúa Juana de Vega 45, A Coruña</td>
-                    <td class="contato">+34 981 21 55 66</td>
-                    <td class="contato">babel.idiomas@gmail.com</td>
-                    <td class="funcionarios">4-6</td>
-                    <td class="potencial alto">ALTO</td>
-                    <td>Academia idiomas, precisa captação online</td>
-                </tr>
-                <tr>
-                    <td class="empresa-nome">Inmobiliaria Costa Verde</td>
-                    <td class="setor">Serviços - Imobiliária</td>
-                    <td>Rúa Durán Loriga 78, A Coruña</td>
-                    <td class="contato">+34 981 23 66 77</td>
-                    <td class="contato">N/D - SEM SITE</td>
-                    <td class="funcionarios">3-5</td>
-                    <td class="potencial alto">ALTO</td>
-                    <td>Imobiliária, crucial ter presença digital</td>
-                </tr>
-                <tr>
-                    <td class="empresa-nome">Gestoría Administrativa Coruña</td>
-                    <td class="setor">Serviços - Contabilidade</td>
-                    <td>Rúa República El Salvador 34, A Coruña</td>
-                    <td class="contato">+34 981 22 77 88</td>
-                    <td class="contato">N/D</td>
-                    <td class="funcionarios">2-4</td>
-                    <td class="potencial medio">MÉDIO</td>
-                    <td>Gestoría, precisa SEO local para captação</td>
-                </tr>
-                <tr>
-                    <td class="empresa-nome">Estudio Fotográfico Lens</td>
-                    <td class="setor">Serviços - Fotografia</td>
-                    <td>Rúa Alcalde Lens 67, A Coruña</td>
-                    <td class="contato">+34 981 24 88 99</td>
-                    <td class="contato">N/D - SEM PORTFOLIO ONLINE</td>
-                    <td class="funcionarios">1-2</td>
-                    <td class="potencial alto">ALTO</td>
-                    <td>Estúdio foto, precisa portfolio e Instagram</td>
-                </tr>
-                <tr>
-                    <td class="empresa-nome">Taxi Coruña 24h</td>
-                    <td class="setor">Transporte - Táxi</td>
-                    <td>A Coruña (Móvel)</td>
-                    <td class="contato">+34 981 25 99 00</td>
-                    <td class="contato">N/D - SEM APP</td>
-                    <td class="funcionarios">1</td>
-                    <td class="potencial medio">MÉDIO</td>
-                    <td>Táxi independente, precisa presença online</td>
-                </tr>
-                
-                <!-- ÚLTIMOS NEGÓCIOS -->
-                <tr>
-                    <td class="empresa-nome">Lavandería Speed Clean</td>
-                    <td class="setor">Serviços - Lavanderia</td>
-                    <td>Rúa Menéndez Pelayo 89, A Coruña</td>
-                    <td class="contato">+34 981 26 00 11</td>
-                    <td class="contato">N/D</td>
-                    <td class="funcionarios">2-3</td>
-                    <td class="potencial medio">MÉDIO</td>
-                    <td>Lavanderia, precisa serviço coleta/entrega online</td>
-                </tr>
-                <tr>
-                    <td class="empresa-nome">Parafarmacia Natural</td>
-                    <td class="setor">Saúde - Parafarmácia</td>
-                    <td>Rúa Salvador de Madariaga 23, A Coruña</td>
-                    <td class="contato">+34 981 27 11 22</td>
-                    <td class="contato">N/D - SEM E-COMMERCE</td>
-                    <td class="funcionarios">2-3</td>
-                    <td class="potencial alto">ALTO</td>
-                    <td>Produtos naturais, precisa e-commerce</td>
-                </tr>
-       </tbody>
-        </table>
-
-        <div class="tip-box">
-            💡 Dica: Use esta lista para campanhas de marketing segmentadas no Facebook, Instagram e Google porfi.
-
+                <div class="results">
+                    <h3>Resultados Garantizados</h3>
+                    <div class="results-grid">
+                        <div class="result-item">
+                            <div class="result-icon">📈</div>
+                            <div class="result-text">Más ventas</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-icon">🌐</div>
+                            <div class="result-text">Mejor presencia digital</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-icon">🚀</div>
+                            <div class="result-text">Crecimiento sostenible</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer">
+                <a href="https://wa.me/34641783597?text=Hola,%20quiero%20más%20información%20sobre%20el%20Paquete%20Harpia%20Growth%20Acelerado" target="_blank" class="cta">¿Quieres todos los detalles? Contáctanos</a>
+            </div>
         </div>
     </div>
-
-    <script>
-        function downloadCSV() {
-            let table = document.getElementById("empresasTable");
-            let rows = table.querySelectorAll("tr");
-            let csv = [];
-
-            for (let row of rows) {
-                let cols = row.querySelectorAll("th, td");
-                let rowData = [];
-                for (let col of cols) {
-                    rowData.push('"' + col.innerText.replace(/"/g, '""') + '"');
-                }
-                csv.push(rowData.join(","));
-            }
-
-            let csvFile = new Blob([csv.join("\n")], { type: "text/csv" });
-            let downloadLink = document.createElement("a");
-            downloadLink.download = "empresas_acoruna.csv";
-            downloadLink.href = window.URL.createObjectURL(csvFile);
-            downloadLink.click();
-        }
-
-        function downloadExcel() {
-            let table = document.getElementById("empresasTable");
-            let rows = table.querySelectorAll("tr");
-            let xls = "<table border='1'>";
-
-            for (let row of rows) {
-                xls += "<tr>";
-                let cols = row.querySelectorAll("th, td");
-                for (let col of cols) {
-                    xls += "<td>" + col.innerText + "</td>";
-                }
-                xls += "</tr>";
-            }
-
-            xls += "</table>";
-            let data = new Blob([xls], { type: "application/vnd.ms-excel" });
-            let downloadLink = document.createElement("a");
-            downloadLink.download = "empresas_acoruna.xls";
-            downloadLink.href = window.URL.createObjectURL(data);
-            downloadLink.click();
-        }
-    </script>
-    </table>
-    </tbody>
-    <head>
-</body>
-</html> 
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9739f6e157c80390',t:'MTc1NTk0NTMzOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
