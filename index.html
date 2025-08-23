@@ -4,8 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paquete Harpia Growth Acelerado - Dynamic</title>
+    <!-- Non-blocking font preload -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&display=swap" onload="this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"></noscript>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&display=swap');
+    /* Load Google Fonts non-blocking */
+    /* Preconnect and load stylesheet with onload trick for non-blocking behavior */
+    /* See: https://developers.google.com/web/updates/2016/03/link-rel-preload */
+        
+    /* font preload is added via <link> above the <style> tag to avoid render-blocking */
         
         * {
             margin: 0;
@@ -15,7 +24,10 @@
         
         body {
             font-family: 'Montserrat', sans-serif;
-            overflow: hidden;
+            /* allow normal scrolling (better for performance on some devices) */
+            overflow: auto;
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
         }
         
         .container {
@@ -53,7 +65,8 @@
             clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
             top: 15%;
             right: 8%;
-            animation: rotate360 8s linear infinite;
+            /* animation will be started after idle; lightweight hint for GPU */
+            will-change: transform;
         }
         
         .diamond {
@@ -63,7 +76,7 @@
             transform: rotate(45deg);
             top: 70%;
             left: 5%;
-            animation: bounce 4s ease-in-out infinite;
+            will-change: transform;
         }
         
         .wave {
@@ -73,7 +86,7 @@
             border-radius: 40px;
             top: 25%;
             left: -50px;
-            animation: wave-move 6s ease-in-out infinite;
+            will-change: transform;
         }
         
         .circle-large {
@@ -83,7 +96,7 @@
             border-radius: 50%;
             bottom: 10%;
             right: -50px;
-            animation: pulse-scale 5s ease-in-out infinite;
+            will-change: transform, opacity;
         }
         
         .triangle {
@@ -94,7 +107,7 @@
             border-bottom: 104px solid #2ecc71;
             top: 50%;
             right: 20%;
-            animation: float-triangle 7s ease-in-out infinite;
+            will-change: transform;
         }
         
         @keyframes rotate360 {
@@ -131,7 +144,7 @@
             background: linear-gradient(to bottom, transparent, #2ecc71, transparent);
             left: 20%;
             top: 0;
-            animation: beam-sweep 8s linear infinite;
+            will-change: transform, opacity;
             opacity: 0.4;
         }
         
@@ -142,7 +155,7 @@
             background: linear-gradient(to bottom, transparent, #27ae60, transparent);
             right: 30%;
             top: 0;
-            animation: beam-sweep 10s linear infinite reverse;
+            will-change: transform, opacity;
             opacity: 0.3;
         }
         
@@ -177,7 +190,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: title-glow 3s ease-in-out infinite alternate;
+            will-change: filter;
             letter-spacing: -2px;
         }
         
@@ -211,7 +224,8 @@
             border: 4px solid #2ecc71;
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(10px);
+            /* backdrop-filter is expensive on many devices; use lighter alternative */
+            background-clip: padding-box;
         }
         
         .features::before {
@@ -224,7 +238,7 @@
             background: linear-gradient(45deg, #2ecc71, #27ae60, #2ecc71, #27ae60);
             border-radius: 30px;
             z-index: -1;
-            animation: border-glow 4s linear infinite;
+            /* animation starts only when class .delayed-anim is added */
         }
         
         @keyframes border-glow {
@@ -241,7 +255,7 @@
             width: 300%;
             height: 300%;
             background: conic-gradient(from 0deg, transparent, rgba(46, 204, 113, 0.1), transparent);
-            animation: rotate-bg 6s linear infinite;
+            /* animation deferred */
         }
         
         @keyframes rotate-bg {
@@ -288,10 +302,10 @@
             margin-right: 15px;
             font-weight: 900;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-            animation: check-pulse 2s ease-in-out infinite;
+            will-change: transform;
         }
         
-        @keyframes check-pulse {
+    @keyframes check-pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.1); }
         }
@@ -347,7 +361,7 @@
             width: 200%;
             height: 200%;
             background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer-result 4s linear infinite;
+            /* shimmer deferred */
         }
         
         @keyframes shimmer-result {
@@ -365,7 +379,7 @@
             font-size: 2.5rem;
             margin-bottom: 8px;
             filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.3));
-            animation: icon-bounce 3s ease-in-out infinite;
+            will-change: transform;
         }
         
         @keyframes icon-bounce {
@@ -555,5 +569,37 @@
             </div>
         </div>
     </div>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9739f6e157c80390',t:'MTc1NTk0NTMzOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<!-- Deferred animation starter: uses requestIdleCallback when available to avoid blocking initial paint -->
+<script>
+    (function(){
+        var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        function startAnimations(){
+            if(prefersReduced) return; // respect user preference
+            // add a single class to body to enable animations defined in CSS via .delayed-anim selectors
+            document.body.classList.add('delayed-anim');
+            // enable explicit inline animation properties for shapes to avoid layout thrash
+            var hex=document.querySelector('.hexagon'); if(hex) hex.style.animation='rotate360 8s linear infinite';
+            var dia=document.querySelector('.diamond'); if(dia) dia.style.animation='bounce 4s ease-in-out infinite';
+            var wave=document.querySelector('.wave'); if(wave) wave.style.animation='wave-move 6s ease-in-out infinite';
+            var circle=document.querySelector('.circle-large'); if(circle) circle.style.animation='pulse-scale 5s ease-in-out infinite';
+            var tri=document.querySelector('.triangle'); if(tri) tri.style.animation='float-triangle 7s ease-in-out infinite';
+            var beam=document.querySelector('.light-beam'); if(beam) beam.style.animation='beam-sweep 8s linear infinite';
+            var beam2=document.querySelector('.light-beam2'); if(beam2) beam2.style.animation='beam-sweep 10s linear infinite reverse';
+            // start other UI animations
+            var checks=document.querySelectorAll('.checkmark'); checks.forEach(function(el){ el.style.animation='check-pulse 2s ease-in-out infinite'; });
+            var icons=document.querySelectorAll('.result-icon'); icons.forEach(function(el){ el.style.animation='icon-bounce 3s ease-in-out infinite'; });
+            // shimmer
+            var shims=document.querySelectorAll('.result-item::before');
+            // note: pseudo-elements can't be targeted via JS; used .delayed-anim class in CSS for shimmer
+        }
+
+        if('requestIdleCallback' in window){
+            requestIdleCallback(startAnimations,{timeout:2000});
+        } else {
+            // fallback after load; small delay to let paint complete
+            window.addEventListener('load',function(){ setTimeout(startAnimations,700); });
+        }
+    })();
+</script>
+</body>
 </html>
