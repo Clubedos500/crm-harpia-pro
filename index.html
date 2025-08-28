@@ -1,648 +1,706 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paquete Harpia Growth Acelerado - Dynamic</title>
-    <!-- Non-blocking font preload -->
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&display=swap" onload="this.rel='stylesheet'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"></noscript>
-
-    <style>
-    /* Load Google Fonts non-blocking */
-    /* Preconnect and load stylesheet with onload trick for non-blocking behavior */
-    /* See: https://developers.google.com/web/updates/2016/03/link-rel-preload */
-        
-    /* font preload is added via <link> above the <style> tag to avoid render-blocking */
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Montserrat', sans-serif;
-            /* allow normal scrolling (better for performance on some devices) */
-            overflow: auto;
-            -webkit-font-smoothing:antialiased;
-            -moz-osx-font-smoothing:grayscale;
-        }
-        
-        .container {
-            width: 100vw;
-            /* allow the container to grow beyond the viewport to enable scrolling on small screens */
-            min-height: 100vh;
-            position: relative;
-            background: radial-gradient(ellipse at top left, #2ecc71 0%, #27ae60 25%, #ffffff 45%, #f8f9fa 65%, #2ecc71 85%, #1e8449 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 35px 50px;
-            overflow: visible;
-        }
-        
-        /* Elementos geométricos animados de fundo */
-        .bg-elements {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            overflow: hidden;
-        }
-        
-        .geometric-shape {
-            position: absolute;
-            opacity: 0.15;
-        }
-        
-        .hexagon {
-            width: 120px;
-            height: 104px;
-            background: linear-gradient(45deg, #2ecc71, #27ae60);
-            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-            top: 15%;
-            right: 8%;
-            /* animation will be started after idle; lightweight hint for GPU */
-            will-change: transform;
-        }
-        
-        .diamond {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, #000, #333);
-            transform: rotate(45deg);
-            top: 70%;
-            left: 5%;
-            will-change: transform;
-        }
-        
-        .wave {
-            width: 300px;
-            height: 80px;
-            background: linear-gradient(90deg, #2ecc71, transparent, #2ecc71);
-            border-radius: 40px;
-            top: 25%;
-            left: -50px;
-            will-change: transform;
-        }
-        
-        .circle-large {
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(46, 204, 113, 0.3), rgba(46, 204, 113, 0.1));
-            border-radius: 50%;
-            bottom: 10%;
-            right: -50px;
-            will-change: transform, opacity;
-        }
-        
-        .triangle {
-            width: 0;
-            height: 0;
-            border-left: 60px solid transparent;
-            border-right: 60px solid transparent;
-            border-bottom: 104px solid #2ecc71;
-            top: 50%;
-            right: 20%;
-            will-change: transform;
-        }
-        
-        @keyframes rotate360 {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: rotate(45deg) translateY(0px); }
-            50% { transform: rotate(45deg) translateY(-30px); }
-        }
-        
-        @keyframes wave-move {
-            0%, 100% { transform: translateX(0px) scaleX(1); }
-            50% { transform: translateX(50px) scaleX(1.2); }
-        }
-        
-        @keyframes pulse-scale {
-            0%, 100% { transform: scale(1); opacity: 0.3; }
-            50% { transform: scale(1.3); opacity: 0.1; }
-        }
-        
-        @keyframes float-triangle {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            33% { transform: translateY(-20px) rotate(10deg); }
-            66% { transform: translateY(10px) rotate(-5deg); }
-        }
-        
-        /* Efeitos de luz dinâmicos */
-        .light-beam {
-            position: absolute;
-            width: 2px;
-            height: 100vh;
-            background: linear-gradient(to bottom, transparent, #2ecc71, transparent);
-            left: 20%;
-            top: 0;
-            will-change: transform, opacity;
-            opacity: 0.4;
-        }
-        
-        .light-beam2 {
-            position: absolute;
-            width: 2px;
-            height: 100vh;
-            background: linear-gradient(to bottom, transparent, #27ae60, transparent);
-            right: 30%;
-            top: 0;
-            will-change: transform, opacity;
-            opacity: 0.3;
-        }
-        
-        @keyframes beam-sweep {
-            0% { transform: translateX(-100px) scaleY(0.5); }
-            50% { transform: translateX(100px) scaleY(1.2); }
-            100% { transform: translateX(-100px) scaleY(0.5); }
-        }
-        
-        .content {
-            position: relative;
-            z-index: 10;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 25px;
-            position: relative;
-        }
-        
-        .title {
-            font-size: 3.8rem;
-            font-weight: 900;
-            color: #000;
-            margin-bottom: 10px;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.2);
-            background: linear-gradient(45deg, #000 30%, #2ecc71 50%, #000 70%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            will-change: filter;
-            letter-spacing: -2px;
-        }
-        
-        @keyframes title-glow {
-            0% { filter: drop-shadow(0 0 5px rgba(46, 204, 113, 0.3)); }
-            100% { filter: drop-shadow(0 0 20px rgba(46, 204, 113, 0.6)); }
-        }
-        
-        .subtitle {
-            font-size: 1.3rem;
-            color: #ffcc00;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .main-content {
-            display: grid;
-            grid-template-columns: 1.3fr 0.7fr;
-            gap: 35px;
-            flex: 1;
-            align-items: center;
-        }
-        
-        .features {
-            background: rgba(255, 255, 255, 0.98);
-            padding: 30px;
-            border-radius: 30px;
-            box-shadow: 0 25px 80px rgba(0,0,0,0.2);
-            border: 4px solid #2ecc71;
-            position: relative;
-            overflow: hidden;
-            /* backdrop-filter is expensive on many devices; use lighter alternative */
-            background-clip: padding-box;
-        }
-        
-        .features::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #2ecc71, #27ae60, #2ecc71, #27ae60);
-            border-radius: 30px;
-            z-index: -1;
-            /* animation starts only when class .delayed-anim is added */
-        }
-        
-        @keyframes border-glow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        .features::after {
-            content: '';
-            position: absolute;
-            top: -100%;
-            left: -100%;
-            width: 300%;
-            height: 300%;
-            background: conic-gradient(from 0deg, transparent, rgba(46, 204, 113, 0.1), transparent);
-            /* animation deferred */
-        }
-        
-        @keyframes rotate-bg {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .features h3 {
-            font-size: 1.5rem;
-            color: #000;
-            margin-bottom: 20px;
-            font-weight: 800;
-            position: relative;
-            z-index: 2;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .feature-list {
-            list-style: none;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .feature-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 12px;
-            padding: 8px 15px;
-            border-radius: 15px;
-            transition: all 0.3s ease;
-            background: rgba(46, 204, 113, 0.05);
-        }
-        
-        .feature-item:hover {
-            transform: translateX(15px) scale(1.02);
-            background: rgba(46, 204, 113, 0.15);
-            box-shadow: 0 8px 25px rgba(46, 204, 113, 0.2);
-        }
-        
-        .checkmark {
-            color: #2ecc71;
-            font-size: 1.6rem;
-            margin-right: 15px;
-            font-weight: 900;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-            will-change: transform;
-        }
-        
-    @keyframes check-pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-        
-        .feature-text {
-            font-size: 0.95rem;
-            color: #000;
-            font-weight: 600;
-            line-height: 1.3;
-        }
-        
-        .results {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-        
-        .results h3 {
-            font-size: 1.8rem;
-            color: #000;
-            margin-bottom: 25px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .results-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 100%;
-        }
-        
-        .result-item {
-            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 50%, #1e8449 100%);
-            padding: 20px;
-            border-radius: 25px;
-            box-shadow: 0 20px 50px rgba(46, 204, 113, 0.4);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            border: 3px solid rgba(255,255,255,0.3);
-        }
-        
-        .result-item::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            /* shimmer deferred */
-        }
-        
-        @keyframes shimmer-result {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-        }
-        
-        .result-item:hover {
-            transform: translateY(-12px) scale(1.08);
-            box-shadow: 0 30px 70px rgba(46, 204, 113, 0.5);
-            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 50%, #27ae60 100%);
-        }
-        
-        .result-icon {
-            font-size: 2.5rem;
-            margin-bottom: 8px;
-            filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.3));
-            will-change: transform;
-        }
-        
-        @keyframes icon-bounce {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-        }
-        
-        .result-text {
-            font-size: 1rem;
-            color: white;
-            font-weight: 800;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .footer {
-            text-align: center;
-            margin-top: 15px;
-            position: relative;
-            z-index: 10;
-        }
-        
-        .cta {
-            font-size: 1.5rem;
-            color: white;
-            font-weight: 800;
-            background: linear-gradient(135deg, #000 0%, #333 50%, #000 100%);
-            padding: 20px 50px;
-            border-radius: 50px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-            display: inline-block;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            border: 3px solid #2ecc71;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        
-        .cta::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(46, 204, 113, 0.4), transparent);
-            transition: left 0.6s;
-        }
-        
-        .cta:hover::before {
-            left: 100%;
-        }
-        
-        .cta:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 25px 60px rgba(0,0,0,0.5);
-            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 50%, #2ecc71 100%);
-        }
-        
-        @media (max-width: 1200px) {
-            .container {
-                padding: 25px 35px;
-            }
-            
-            .title {
-                font-size: 3rem;
-            }
-            
-            .main-content {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-            
-            .results-grid {
-                flex-direction: row;
-                justify-content: space-around;
-            }
-            
-            .result-item {
-                flex: 1;
-                margin: 0 5px;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px 15px;
-                /* allow scrolling on small screens so footer/CTA isn't clipped */
-                height: auto !important;
-                min-height: 100vh;
-                overflow-y: auto !important;
-            }
-            
-            .title {
-                font-size: 2.2rem;
-            }
-            
-            .results-grid {
-                flex-direction: column;
-            }
-            
-            .result-item {
-                margin: 0;
-            }
-            /* allow main content to grow naturally instead of forcing 100% height */
-            .content {
-                height: auto !important;
-            }
-            /* Mobile performance: disable heavy animated background elements */
-            .bg-elements,
-            .geometric-shape,
-            .light-beam,
-            .light-beam2,
-            .features::after,
-            .features::before,
-            .result-item::before {
-                display: none !important;
-                opacity: 0 !important;
-                animation: none !important;
-            }
-            /* reduce shadows and heavy paints on mobile */
-            .features,
-            .result-item,
-            .cta {
-                box-shadow: none !important;
-                border-radius: 16px !important;
-            }
-            /* larger, reachable CTA on mobile */
-            .cta {
-                display: inline-block;
-                padding: 14px 24px !important;
-                font-size: 1rem !important;
-                min-height: 48px;
-                line-height: 1.2;
-                -webkit-tap-highlight-color: rgba(0,0,0,0.05);
-                /* make CTA full width and easier to tap on mobile */
-                width: calc(100% - 30px);
-                max-width: 560px;
-                box-sizing: border-box;
-                margin: 0 auto;
-                text-align: center;
-            }
-        }
-    </style>
+    <title>Plataforma de Treinamento em Negociação</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-    <div class="container">
-        <div class="bg-elements">
-            <div class="geometric-shape hexagon"></div>
-            <div class="geometric-shape diamond"></div>
-            <div class="geometric-shape wave"></div>
-            <div class="geometric-shape circle-large"></div>
-            <div class="geometric-shape triangle"></div>
-        </div>
-        
-        <div class="light-beam"></div>
-        <div class="light-beam2"></div>
-        
-        <div class="content">
-            <div class="header">
-                <h1 class="title">Paquete Harpia Growth Acelerado</h1>
-                <p class="subtitle">Transforma tu negocio hoy</p>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Auth Section -->
+    <div id="auth-section" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-xl shadow-2xl p-8 max-w-md w-full">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="auth-title" class="text-2xl font-bold text-gray-800">Entrar</h2>
+                <div class="flex space-x-2">
+                    <button id="show-login-btn" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">Login</button>
+                    <button id="show-register-btn" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors">Cadastro</button>
+                </div>
             </div>
             
-            <div class="main-content">
-                <div class="features">
-                    <h3>Lo que incluye nuestro paquete</h3>
-                    <ul class="feature-list">
-                        <li class="feature-item">
-                            <span class="checkmark">✅</span>
-                            <span class="feature-text">3 posts semanales (Reels) – contenido atractivo</span>
+            <!-- Login Form -->
+            <form id="login-form" class="space-y-4">
+                <div>
+                    <label for="login-email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <input type="email" id="login-email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+                </div>
+                <div>
+                    <label for="login-password" class="block text-sm font-medium text-gray-700 mb-1">Senha</label>
+                    <input type="password" id="login-password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+                </div>
+                <div id="login-error" class="text-red-500 text-sm hidden"></div>
+                <button type="submit" class="w-full py-2 px-4 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors">Entrar</button>
+            </form>
+            
+            <!-- Register Form -->
+            <form id="register-form" class="space-y-4 hidden">
+                <div>
+                    <label for="register-name" class="block text-sm font-medium text-gray-700 mb-1">Nome</label>
+                    <input type="text" id="register-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+                </div>
+                <div>
+                    <label for="register-email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <input type="email" id="register-email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+                </div>
+                <div>
+                    <label for="register-password" class="block text-sm font-medium text-gray-700 mb-1">Senha</label>
+                    <input type="password" id="register-password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+                </div>
+                <div>
+                    <label for="register-confirm-password" class="block text-sm font-medium text-gray-700 mb-1">Confirmar Senha</label>
+                    <input type="password" id="register-confirm-password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+                </div>
+                <div id="register-error" class="text-red-500 text-sm hidden"></div>
+                <button type="submit" class="w-full py-2 px-4 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <h1 class="text-2xl font-bold">🎯 Plataforma de Negociação</h1>
+                <div class="flex items-center space-x-4">
+                    <span id="userProgress" class="text-sm">Progresso: 0%</span>
+                    <button onclick="exportReport()" class="bg-white text-purple-600 px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors">
+                        📊 Exportar Relatório
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+ 
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-40">
+        <div class="container mx-auto px-6">
+            <div class="flex space-x-8 overflow-x-auto">
+                <button onclick="showSection('dashboard')" class="nav-btn py-4 px-2 border-b-2 border-transparent hover:border-purple-500 whitespace-nowrap">
+                    🏠 Dashboard
+                </button>
+                <button onclick="showSection('exercises')" class="nav-btn py-4 px-2 border-b-2 border-transparent hover:border-purple-500 whitespace-nowrap">
+                    📚 Exercícios Práticos
+                </button>
+                <button onclick="showSection('training')" class="nav-btn py-4 px-2 border-b-2 border-transparent hover:border-purple-500 whitespace-nowrap">
+                    🏃‍♂️ Plano 14 Dias
+                </button>
+                <button onclick="showSection('progress')" class="nav-btn py-4 px-2 border-b-2 border-transparent hover:border-purple-500 whitespace-nowrap">
+                    📈 Progresso
+                </button>
+            </div>
+        </div>
+    </nav>
+ 
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+        <!-- Dashboard Section -->
+        <div id="dashboard" class="section active">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">Exercícios Concluídos</h3>
+                        <span class="text-2xl">📋</span>
+                    </div>
+                    <div class="text-3xl font-bold text-purple-600" id="completedExercises">0/9</div>
+                    <div class="mt-2 text-sm text-gray-500">Exercícios da Seção 13</div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">Dias Completados</h3>
+                        <span class="text-2xl">📅</span>
+                    </div>
+                    <div class="text-3xl font-bold text-purple-600" id="completedDays">0/14</div>
+                    <div class="mt-2 text-sm text-gray-500">Plano de 14 dias</div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">Tempo Total</h3>
+                        <span class="text-2xl">⏱️</span>
+                    </div>
+                    <div class="text-3xl font-bold text-purple-600" id="totalTime">0h 0m</div>
+                    <div class="mt-2 text-sm text-gray-500">Tempo de prática</div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Progresso Geral</h2>
+                <div class="w-full bg-gray-200 rounded-full h-4 mb-2">
+                    <div id="progressBar" class="progress-bar bg-purple-600 h-4 rounded-full" style="width: 0%"></div>
+                </div>
+                <div class="flex justify-between text-sm text-gray-500">
+                    <span>0%</span>
+                    <span>100%</span>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Próximos Exercícios</h2>
+                    <ul class="space-y-3" id="nextExercises">
+                        <li class="flex items-center p-3 border border-gray-200 rounded-lg">
+                            <span class="bg-purple-100 text-purple-600 p-2 rounded-md mr-3">1</span>
+                            <span>Mapa BATNA</span>
                         </li>
-                        <li class="feature-item">
-                            <span class="checkmark">✅</span>
-                            <span class="feature-text">3 posts semanales (Stories) – mantiene tu marca activa</span>
+                        <li class="flex items-center p-3 border border-gray-200 rounded-lg">
+                            <span class="bg-purple-100 text-purple-600 p-2 rounded-md mr-3">2</span>
+                            <span>MESO - Pacotes Equivalentes</span>
                         </li>
-                        <li class="feature-item">
-                            <span class="checkmark">✅</span>
-                            <span class="feature-text">Gestión completa de redes sociales</span>
-                        </li>
-                        <li class="feature-item">
-                            <span class="checkmark">✅</span>
-                            <span class="feature-text">Actualización quincenal de Google Mi Negocio</span>
-                        </li>
-                        <li class="feature-item">
-                            <span class="checkmark">✅</span>
-                            <span class="feature-text">Integración con la plataforma Meta</span>
-                        </li>
-                        <li class="feature-item">
-                            <span class="checkmark">✅</span>
-                            <span class="feature-text">Planificación SEO</span>
-                        </li>
-                        <li class="feature-item">
-                            <span class="checkmark">✅</span>
-                            <span class="feature-text">2 diseños quincenales para tráfico pago</span>
-                        </li>
-                        <li class="feature-item">
-                            <span class="checkmark">✅</span>
-                            <span class="feature-text">Creación de bot básico</span>
+                        <li class="flex items-center p-3 border border-gray-200 rounded-lg">
+                            <span class="bg-purple-100 text-purple-600 p-2 rounded-md mr-3">3</span>
+                            <span>Concessões Estratégicas</span>
                         </li>
                     </ul>
                 </div>
                 
-                <div class="results">
-                    <h3>Resultados Garantizados</h3>
-                    <div class="results-grid">
-                        <div class="result-item">
-                            <div class="result-icon">📈</div>
-                            <div class="result-text">Más ventas</div>
+                <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Plano de Hoje</h2>
+                    <div class="flex items-center justify-center mb-6">
+                        <div class="relative w-32 h-32">
+                            <svg class="w-full h-full" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="#e2e8f0" stroke-width="8"/>
+                                <circle id="timerCircle" cx="50" cy="50" r="45" fill="none" stroke="#7c3aed" stroke-width="8" class="timer-circle"/>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span id="timerDisplay" class="text-2xl font-bold">30:00</span>
+                            </div>
                         </div>
-                        <div class="result-item">
-                            <div class="result-icon">🌐</div>
-                            <div class="result-text">Mejor presencia digital</div>
+                    </div>
+                    <div class="text-center mb-4">
+                        <h3 class="font-semibold text-gray-800">Exercício do Dia 1</h3>
+                        <p class="text-sm text-gray-500">Mapa BATNA e Análise</p>
+                    </div>
+                    <div class="flex justify-center space-x-2">
+                        <button id="startTimer" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                            Iniciar
+                        </button>
+                        <button id="resetTimer" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors">
+                            Reiniciar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Exercises Section -->
+        <div id="exercises" class="section hidden">
+            <h1 class="text-2xl font-bold text-gray-800 mb-6">Exercícios Práticos</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- BATNA Map -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-gray-800">Mapa BATNA</h3>
+                            <span class="bg-purple-100 text-purple-600 text-xs font-semibold px-3 py-1 rounded-full">30 min</span>
                         </div>
-                        <div class="result-item">
-                            <div class="result-icon">🚀</div>
-                            <div class="result-text">Crecimiento sostenible</div>
+                        <p class="text-gray-600 mb-4">Registre sua BATNA, a da contraparte e estratégias para fortalecer sua posição.</p>
+                        <button onclick="openExercise('batna')" class="w-full bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                            Iniciar Exercício
+                        </button>
+                    </div>
+                    <div class="bg-gray-50 px-6 py-3">
+                        <div class="flex items-center">
+                            <span class="text-gray-500 text-sm">Status:</span>
+                            <span class="ml-2 text-sm font-medium text-red-500">Não iniciado</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- MESO -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-gray-800">MESO</h3>
+                            <span class="bg-purple-100 text-purple-600 text-xs font-semibold px-3 py-1 rounded-full">45 min</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Crie 3 pacotes de proposta equivalentes para apresentar à contraparte.</p>
+                        <button onclick="openExercise('meso')" class="w-full bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                            Iniciar Exercício
+                        </button>
+                    </div>
+                    <div class="bg-gray-50 px-6 py-3">
+                        <div class="flex items-center">
+                            <span class="text-gray-500 text-sm">Status:</span>
+                            <span class="ml-2 text-sm font-medium text-red-500">Não iniciado</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Concessões -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-gray-800">Concessões</h3>
+                            <span class="bg-purple-100 text-purple-600 text-xs font-semibold px-3 py-1 rounded-full">30 min</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Identifique concessões estratégicas baseadas em custo-benefício para ambas as partes.</p>
+                        <button onclick="openExercise('concessoes')" class="w-full bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                            Iniciar Exercício
+                        </button>
+                    </div>
+                    <div class="bg-gray-50 px-6 py-3">
+                        <div class="flex items-center">
+                            <span class="text-gray-500 text-sm">Status:</span>
+                            <span class="ml-2 text-sm font-medium text-red-500">Não iniciado</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Role-play SPIN -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-gray-800">Role-play SPIN</h3>
+                            <span class="bg-purple-100 text-purple-600 text-xs font-semibold px-3 py-1 rounded-full">45 min</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Gere e pratique perguntas para cada fase do método SPIN.</p>
+                        <button onclick="openExercise('spin')" class="w-full bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                            Iniciar Exercício
+                        </button>
+                    </div>
+                    <div class="bg-gray-50 px-6 py-3">
+                        <div class="flex items-center">
+                            <span class="text-gray-500 text-sm">Status:</span>
+                            <span class="ml-2 text-sm font-medium text-red-500">Não iniciado</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Defesa de Âncora -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-gray-800">Defesa de Âncora</h3>
+                            <span class="bg-purple-100 text-purple-600 text-xs font-semibold px-3 py-1 rounded-full">30 min</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Elabore respostas objetivas para defender-se de âncoras extremas.</p>
+                        <button onclick="openExercise('ancora')" class="w-full bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                            Iniciar Exercício
+                        </button>
+                    </div>
+                    <div class="bg-gray-50 px-6 py-3">
+                        <div class="flex items-center">
+                            <span class="text-gray-500 text-sm">Status:</span>
+                            <span class="ml-2 text-sm font-medium text-red-500">Não iniciado</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- E-mail de Síntese -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-gray-800">E-mail de Síntese</h3>
+                            <span class="bg-purple-100 text-purple-600 text-xs font-semibold px-3 py-1 rounded-full">30 min</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Redija um e-mail resumindo os pontos acordados após uma reunião.</p>
+                        <button onclick="openExercise('email')" class="w-full bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                            Iniciar Exercício
+                        </button>
+                    </div>
+                    <div class="bg-gray-50 px-6 py-3">
+                        <div class="flex items-center">
+                            <span class="text-gray-500 text-sm">Status:</span>
+                            <span class="ml-2 text-sm font-medium text-red-500">Não iniciado</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gravação -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-gray-800">Gravação</h3>
+                            <span class="bg-purple-100 text-purple-600 text-xs font-semibold px-3 py-1 rounded-full">45 min</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Simule e revise aberturas de negociação analisando ritmo e clareza.</p>
+                        <button onclick="openExercise('gravacao')" class="w-full bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                            Iniciar Exercício
+                        </button>
+                    </div>
+                    <div class="bg-gray-50 px-6 py-3">
+                        <div class="flex items-center">
+                            <span class="text-gray-500 text-sm">Status:</span>
+                            <span class="ml-2 text-sm font-medium text-red-500">Não iniciado</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Log de Táticas -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-gray-800">Log de Táticas</h3>
+                            <span class="bg-purple-100 text-purple-600 text-xs font-semibold px-3 py-1 rounded-full">30 min</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Registre táticas observadas e desenvolva respostas estratégicas ideais.</p>
+                        <button onclick="openExercise('taticas')" class="w-full bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                            Iniciar Exercício
+                        </button>
+                    </div>
+                    <div class="bg-gray-50 px-6 py-3">
+                        <div class="flex items-center">
+                            <span class="text-gray-500 text-sm">Status:</span>
+                            <span class="ml-2 text-sm font-medium text-red-500">Não iniciado</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Framing -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-gray-800">Framing</h3>
+                            <span class="bg-purple-100 text-purple-600 text-xs font-semibold px-3 py-1 rounded-full">30 min</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Reformule argumentos em molduras de ganho e perda para maior impacto.</p>
+                        <button onclick="openExercise('framing')" class="w-full bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                            Iniciar Exercício
+                        </button>
+                    </div>
+                    <div class="bg-gray-50 px-6 py-3">
+                        <div class="flex items-center">
+                            <span class="text-gray-500 text-sm">Status:</span>
+                            <span class="ml-2 text-sm font-medium text-red-500">Não iniciado</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pós-Negociação -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-gray-800">Pós-Negociação</h3>
+                            <span class="bg-purple-100 text-purple-600 text-xs font-semibold px-3 py-1 rounded-full">30 min</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Crie um checklist de implementação e defina métricas de sucesso.</p>
+                        <button onclick="openExercise('pos')" class="w-full bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                            Iniciar Exercício
+                        </button>
+                    </div>
+                    <div class="bg-gray-50 px-6 py-3">
+                        <div class="flex items-center">
+                            <span class="text-gray-500 text-sm">Status:</span>
+                            <span class="ml-2 text-sm font-medium text-red-500">Não iniciado</span>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        
+        <!-- Training Plan Section -->
+        <div id="training" class="section hidden">
+            <h1 class="text-2xl font-bold text-gray-800 mb-6">Plano de Treino - 14 Dias</h1>
             
-            <div class="footer">
-                <a href="https://wa.me/34641783597?text=Hola,%20quiero%20más%20información%20sobre%20el%20Paquete%20Harpia%20Growth%20Acelerado" target="_blank" class="cta">¿Quieres todos los detalles? Contáctanos</a>
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Visão Geral do Plano</h2>
+                <p class="text-gray-600 mb-4">Este plano de 14 dias foi desenvolvido para aprimorar suas habilidades de negociação através de exercícios diários cronometrados. Cada dia foca em um aspecto específico da negociação.</p>
+                <div class="w-full bg-gray-200 rounded-full h-4 mb-2">
+                    <div id="trainingProgressBar" class="progress-bar bg-purple-600 h-4 rounded-full" style="width: 0%"></div>
+                </div>
+                <div class="flex justify-between text-sm text-gray-500">
+                    <span>Dia 1</span>
+                    <span>Dia 14</span>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-8">
+                <!-- Day 1 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="p-4 border-b">
+                        <h3 class="font-semibold text-gray-800">Dia 1</h3>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-medium text-purple-600 mb-2">Mapa BATNA</h4>
+                        <p class="text-sm text-gray-600 mb-3">Desenvolva seu mapa BATNA para uma negociação específica.</p>
+                        <div class="flex items-center text-xs text-gray-500">
+                            <span class="mr-2">⏱️</span>
+                            <span>30 minutos</span>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-4">
+                        <button onclick="startDayTraining(1)" class="w-full bg-purple-600 text-white px-3 py-1 rounded-lg hover:bg-purple-700 transition-colors text-sm">
+                            Iniciar Dia 1
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Day 2 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="p-4 border-b">
+                        <h3 class="font-semibold text-gray-800">Dia 2</h3>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-medium text-purple-600 mb-2">MESO - Pacotes</h4>
+                        <p class="text-sm text-gray-600 mb-3">Crie 3 pacotes de proposta equivalentes para uma negociação.</p>
+                        <div class="flex items-center text-xs text-gray-500">
+                            <span class="mr-2">⏱️</span>
+                            <span>45 minutos</span>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-4">
+                        <button onclick="startDayTraining(2)" class="w-full bg-purple-600 text-white px-3 py-1 rounded-lg hover:bg-purple-700 transition-colors text-sm">
+                            Iniciar Dia 2
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Day 3 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="p-4 border-b">
+                        <h3 class="font-semibold text-gray-800">Dia 3</h3>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-medium text-purple-600 mb-2">Concessões</h4>
+                        <p class="text-sm text-gray-600 mb-3">Identifique concessões estratégicas para uma negociação.</p>
+                        <div class="flex items-center text-xs text-gray-500">
+                            <span class="mr-2">⏱️</span>
+                            <span>30 minutos</span>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-4">
+                        <button onclick="startDayTraining(3)" class="w-full bg-purple-600 text-white px-3 py-1 rounded-lg hover:bg-purple-700 transition-colors text-sm">
+                            Iniciar Dia 3
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Day 4 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="p-4 border-b">
+                        <h3 class="font-semibold text-gray-800">Dia 4</h3>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-medium text-purple-600 mb-2">SPIN - Situação</h4>
+                        <p class="text-sm text-gray-600 mb-3">Pratique perguntas de situação do método SPIN.</p>
+                        <div class="flex items-center text-xs text-gray-500">
+                            <span class="mr-2">⏱️</span>
+                            <span>30 minutos</span>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-4">
+                        <button onclick="startDayTraining(4)" class="w-full bg-purple-600 text-white px-3 py-1 rounded-lg hover:bg-purple-700 transition-colors text-sm">
+                            Iniciar Dia 4
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Days 5-14 would follow the same pattern -->
+                <!-- For brevity, I'm showing just the first 4 days -->
+                <!-- Additional days would be added here with appropriate content -->
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Detalhes do Plano</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead>
+                            <tr>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dia</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Exercício</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duração</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Mapa BATNA</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">30 min</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-red-500">Não iniciado</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">MESO - Pacotes</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">45 min</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-red-500">Não iniciado</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">3</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Concessões</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">30 min</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-red-500">Não iniciado</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">4</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">SPIN - Situação</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">30 min</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-red-500">Não iniciado</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">5</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">SPIN - Problema</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">30 min</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-red-500">Não iniciado</td>
+                            </tr>
+                            <!-- Additional rows would be added here -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
-<!-- Deferred animation starter: uses requestIdleCallback when available to avoid blocking initial paint -->
-<script>
-    (function(){
-        var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        function startAnimations(){
-            if(prefersReduced) return; // respect user preference
-            // add a single class to body to enable animations defined in CSS via .delayed-anim selectors
-            document.body.classList.add('delayed-anim');
-            // enable explicit inline animation properties for shapes to avoid layout thrash
-            var hex=document.querySelector('.hexagon'); if(hex) hex.style.animation='rotate360 8s linear infinite';
-            var dia=document.querySelector('.diamond'); if(dia) dia.style.animation='bounce 4s ease-in-out infinite';
-            var wave=document.querySelector('.wave'); if(wave) wave.style.animation='wave-move 6s ease-in-out infinite';
-            var circle=document.querySelector('.circle-large'); if(circle) circle.style.animation='pulse-scale 5s ease-in-out infinite';
-            var tri=document.querySelector('.triangle'); if(tri) tri.style.animation='float-triangle 7s ease-in-out infinite';
-            var beam=document.querySelector('.light-beam'); if(beam) beam.style.animation='beam-sweep 8s linear infinite';
-            var beam2=document.querySelector('.light-beam2'); if(beam2) beam2.style.animation='beam-sweep 10s linear infinite reverse';
-            // start other UI animations
-            var checks=document.querySelectorAll('.checkmark'); checks.forEach(function(el){ el.style.animation='check-pulse 2s ease-in-out infinite'; });
-            var icons=document.querySelectorAll('.result-icon'); icons.forEach(function(el){ el.style.animation='icon-bounce 3s ease-in-out infinite'; });
-            // shimmer
-            var shims=document.querySelectorAll('.result-item::before');
-            // note: pseudo-elements can't be targeted via JS; used .delayed-anim class in CSS for shimmer
-        }
-
-        if('requestIdleCallback' in window){
-            requestIdleCallback(startAnimations,{timeout:2000});
-        } else {
-            // fallback after load; small delay to let paint complete
-            window.addEventListener('load',function(){ setTimeout(startAnimations,700); });
-        }
-    })();
-</script>
+        
+        <!-- Progress Section -->
+        <div id="progress" class="section hidden">
+            <h1 class="text-2xl font-bold text-gray-800 mb-6">Seu Progresso</h1>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Resumo de Atividades</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-500">Exercícios Concluídos</h3>
+                            <div class="mt-1 flex items-center">
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div id="exercisesProgressBar" class="progress-bar bg-purple-600 h-2 rounded-full" style="width: 0%"></div>
+                                </div>
+                                <span class="ml-2 text-sm font-medium text-gray-700" id="exercisesProgressText">0/9</span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-500">Plano de Treino</h3>
+                            <div class="mt-1 flex items-center">
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div id="daysProgressBar" class="progress-bar bg-purple-600 h-2 rounded-full" style="width: 0%"></div>
+                                </div>
+                                <span class="ml-2 text-sm font-medium text-gray-700" id="daysProgressText">0/14</span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-500">Tempo Total de Prática</h3>
+                            <p class="mt-1 text-2xl font-semibold text-gray-800" id="totalPracticeTime">0h 0m</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Histórico de Atividades</h2>
+                    <div class="overflow-y-auto max-h-64">
+                        <ul class="divide-y divide-gray-200" id="activityHistory">
+                            <li class="py-3 flex justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-800">Nenhuma atividade registrada</p>
+                                    <p class="text-xs text-gray-500">Comece seus exercícios para registrar atividades</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Desempenho por Exercício</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead>
+                            <tr>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Exercício</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tempo Gasto</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Última Atividade</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Mapa BATNA</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-red-500">Não iniciado</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">MESO</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-red-500">Não iniciado</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
+                            </tr>
+                            <!-- Additional rows for each exercise -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Certificado de Conclusão</h2>
+                <p class="text-gray-600 mb-6">Complete todos os exercícios e o plano de 14 dias para receber seu certificado.</p>
+                
+                <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                    <div id="certificatePreview" class="hidden">
+                        <h3 class="text-2xl font-bold text-purple-600 mb-2">Certificado de Conclusão</h3>
+                        <p class="text-lg text-gray-800 mb-4">Este certificado é concedido a</p>
+                        <p class="text-xl font-semibold text-gray-900 mb-4" id="certificateName">Seu Nome</p>
+                        <p class="text-base text-gray-700">Por completar com sucesso o programa de treinamento em negociação</p>
+                        <p class="text-sm text-gray-500 mt-6" id="certificateDate">Data de Conclusão: DD/MM/AAAA</p>
+                    </div>
+                    
+                    <div id="certificatePlaceholder">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <p class="mt-2 text-sm text-gray-500">Complete o programa para desbloquear seu certificado</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Exercise Modal -->
+        <div id="exerciseModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden z-50 flex items-center justify-center">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-screen overflow-y-auto">
+                <div class="p-6 border-b">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-xl font-bold text-gray-800" id="modalTitle">Exercício</h2>
+                        <button onclick="closeExerciseModal()" class="text-gray-400 hover:text-gray-500">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="p-6" id="modalContent">
+                    <!-- Content will be dynamically loaded here -->
+                </div>
+                
+                <div class="p-6 border-t bg-gray-50 flex justify-between">
+                    <div class="flex items-center">
+                        <span class="text-sm text-gray-500 mr-2">Tempo restante:</span>
+                        <span id="exerciseTimer" class="text-sm font-medium">00:00</span>
+                    </div>
+                    <div>
+                        <button onclick="closeExerciseModal()" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors mr-2">
+                            Cancelar
+                        </button>
+                        <button onclick="completeExercise()" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                            Concluir
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between">
+                <div class="mb-6 md:mb-0">
+                    <h2 class="text-xl font-bold mb-2">Plataforma de Treinamento em Negociação</h2>
+                    <p class="text-gray-400">Desenvolvido para aprimorar suas habilidades de negociação</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-2">Contato</h3>
+                    <p class="text-gray-400">suporte@plataformanegociacao.com</p>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-700 text-sm text-gray-400">
+                <p>&copy; 2023 Plataforma de Negociação. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="js/app.js"></script>
 </body>
 </html>
